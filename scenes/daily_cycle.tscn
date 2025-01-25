@@ -44,13 +44,9 @@ _data = {
 [node name="DailyCycle" type="Node"]
 
 [node name="DayAndTime" parent="." instance=ExtResource("1_it6un")]
-offset_left = 964.0
-offset_top = 20.0
-offset_right = 964.0
-offset_bottom = 20.0
+size_flags_horizontal = 8
 
 [node name="DayCycle" type="CanvasModulate" parent="."]
-position = Vector2(-278, 130)
 color = Color(0.690677, 0.771796, 0.976782, 1)
 script = ExtResource("2_2jb6k")
 

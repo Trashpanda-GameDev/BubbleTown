@@ -19,7 +19,6 @@ shape = SubResource("CapsuleShape2D_mvpqy")
 position = Vector2(0, -2)
 scale = Vector2(1.4, 1.75855)
 texture = ExtResource("2_ru62r")
-texture = ExtResource("2_ru62r")
 
 [node name="endOfDayPrompt" type="Control" parent="."]
 layout_mode = 3
@@ -48,4 +47,8 @@ size_flags_horizontal = 4
 
 [node name="yesBtn" type="Button" parent="endOfDayPrompt/VBoxContainer/BoxContainer"]
 layout_mode = 2
-text = "Time to post the picture"
+text = "Yes"
+
+[node name="noBtn" type="Button" parent="endOfDayPrompt/VBoxContainer/BoxContainer"]
+layout_mode = 2
+text = "No"

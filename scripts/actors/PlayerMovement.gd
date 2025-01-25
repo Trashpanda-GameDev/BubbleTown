@@ -8,6 +8,13 @@ extends Node
 
 var velocity: Vector2 = Vector2.ZERO
 
+@onready var end_day_prompt: Control = $endOfDayPrompt
+
+var _has_end_day_prompt: bool = false
+
+func _ready() -> void:
+	$endOfDayPrompt.hide()
+
 func get_movement_direction() -> Vector2:
 	var up: float = Input.get_action_strength("movement_up")
 	var down: float = Input.get_action_strength("movement_down")
@@ -33,3 +40,19 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.normalized() * max_speed
 
 	character.move_and_collide(velocity)
+	
+@export var has_end_day_prompt: bool = false:
+	get:
+		return _has_end_day_prompt
+	set(value):
+		toggle_end_day_prompt(value)
+		_has_end_day_prompt = value
+
+func toggle_end_day_prompt(show_prompt: bool) -> void:
+	if show_prompt:
+		$endOfDayPrompt.show()
+	else:
+		$endOfDayPrompt.hide()
+
+func _on_player_house_toggle_end_day_prompt(show_prompt: bool) -> void:
+	has_end_day_prompt = show_prompt
