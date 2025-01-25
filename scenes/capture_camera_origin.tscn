@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://gjki46qw4x5m"]
 
 [ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_7a6ig"]
-[ext_resource type="Texture2D" uid="uid://dp4ofqm66onex" path="res://icon.svg" id="2_wyc0j"]
+[ext_resource type="Texture2D" uid="uid://bkvnripe85vmn" path="res://icon.svg" id="2_wyc0j"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="3_wyc0j"]
 [ext_resource type="PackedScene" uid="uid://bgor1txup4k06" path="res://scenes/cube_with_highlight.tscn" id="4_bo3sq"]
 
@@ -9,54 +9,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7a6ig"]
 radius = 5.0
-
-[sub_resource type="Shader" id="Shader_8j81y"]
-resource_local_to_scene = true
-code = "// This program draws an outline around sprites grouped under a CanvasGroup node.
-shader_type canvas_item;
-
-uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
-uniform vec4 line_color : source_color = vec4(0, 0, 0, 1);
-uniform float line_thickness = 4.0;
-uniform vec2 viewport_scale = vec2(1.0);
-
-
-void vertex() {
-	VERTEX += (UV * 2.0 - 1.0) * line_thickness;
-}
-
-
-void fragment() {
-    vec2 uv = SCREEN_UV;
-    vec2 size = (SCREEN_PIXEL_SIZE * line_thickness) * viewport_scale;
-
-
-    float outline = texture(screen_texture, uv + vec2(-size.x, 0)).a;
-    outline += texture(screen_texture, uv + vec2(0, size.y)).a;
-    outline += texture(screen_texture, uv + vec2(size.x, 0)).a;
-    outline += texture(screen_texture, uv + vec2(0, -size.y)).a;
-    outline += texture(screen_texture, uv + vec2(-size.x * 0.866, size.y * 0.5)).a;
-    outline += texture(screen_texture, uv + vec2(-size.x * 0.5, size.y * 0.866)).a;
-    outline += texture(screen_texture, uv + vec2(size.x * 0.866, size.y * 0.5)).a;
-    outline += texture(screen_texture, uv + vec2(size.x * 0.5, size.y * 0.866)).a;
-    outline += texture(screen_texture, uv + vec2(-size.x * 0.866, -size.y * 0.5)).a;
-    outline += texture(screen_texture, uv + vec2(-size.x * 0.5, -size.y * 0.866)).a;
-    outline += texture(screen_texture, uv + vec2(size.x * 0.866, -size.y * 0.5)).a;
-    outline += texture(screen_texture, uv + vec2(size.x * 0.5, -size.y * 0.866)).a;
-    outline = min(outline, 1.0);
-
-	vec4 screen_color = texture(screen_texture, SCREEN_UV);
-	COLOR = mix(screen_color, line_color, outline - screen_color.a);
-
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8loyu"]
-resource_local_to_scene = true
-shader = SubResource("Shader_8j81y")
-shader_parameter/line_color = Color(0, 0, 0, 1)
-shader_parameter/line_thickness = 3.0
-shader_parameter/viewport_scale = Vector2(1, 1)
 
 [sub_resource type="Shader" id="Shader_bo3sq"]
 resource_local_to_scene = true
@@ -99,9 +51,57 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8j81y"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8loyu"]
 resource_local_to_scene = true
 shader = SubResource("Shader_bo3sq")
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/line_thickness = 3.0
+shader_parameter/viewport_scale = Vector2(1, 1)
+
+[sub_resource type="Shader" id="Shader_8j81y"]
+resource_local_to_scene = true
+code = "// This program draws an outline around sprites grouped under a CanvasGroup node.
+shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
+uniform vec4 line_color : source_color = vec4(0, 0, 0, 1);
+uniform float line_thickness = 4.0;
+uniform vec2 viewport_scale = vec2(1.0);
+
+
+void vertex() {
+	VERTEX += (UV * 2.0 - 1.0) * line_thickness;
+}
+
+
+void fragment() {
+    vec2 uv = SCREEN_UV;
+    vec2 size = (SCREEN_PIXEL_SIZE * line_thickness) * viewport_scale;
+
+
+    float outline = texture(screen_texture, uv + vec2(-size.x, 0)).a;
+    outline += texture(screen_texture, uv + vec2(0, size.y)).a;
+    outline += texture(screen_texture, uv + vec2(size.x, 0)).a;
+    outline += texture(screen_texture, uv + vec2(0, -size.y)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.866, size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.5, size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.866, size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.5, size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.866, -size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.5, -size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.866, -size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.5, -size.y * 0.866)).a;
+    outline = min(outline, 1.0);
+
+	vec4 screen_color = texture(screen_texture, SCREEN_UV);
+	COLOR = mix(screen_color, line_color, outline - screen_color.a);
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8j81y"]
+resource_local_to_scene = true
+shader = SubResource("Shader_8j81y")
 shader_parameter/line_color = Color(0, 0, 0, 1)
 shader_parameter/line_thickness = 3.0
 shader_parameter/viewport_scale = Vector2(1, 1)
@@ -110,10 +110,6 @@ shader_parameter/viewport_scale = Vector2(1, 1)
 
 [node name="VisionCone" parent="." instance=ExtResource("2_7a6ig")]
 position = Vector2(526.117, 324.895)
-scale = Vector2(0.998975, 1)
-cone_angle = 12.0
-cone_range = 512.0
-raycast_density = 200
 
 [node name="Sprite2D" type="StaticBody2D" parent="."]
 position = Vector2(480.833, 343.663)

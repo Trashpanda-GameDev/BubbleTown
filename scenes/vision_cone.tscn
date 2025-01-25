@@ -4,3 +4,5 @@
 
 [node name="VisionCone" type="Node2D"]
 script = ExtResource("1_a2nto")
+cone_range = 512.0
+raycast_density = 200
