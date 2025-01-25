@@ -11,5 +11,8 @@ func _init(id: int, resource_id: int, repository: ThoughtsRepository) -> void:
 
 	self.repository = repository
 
+func get_texture() -> Texture2D:
+	return repository.get_thought_texture_by_resource_id(self.resource_id)
+
 func get_sprite() -> Sprite2D:
 	return repository.get_thought_sprite_by_resource_id(self.resource_id)

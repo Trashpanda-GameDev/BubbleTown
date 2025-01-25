@@ -11,6 +11,12 @@ func get_thought_by_resource_id(id: int) -> Thought:
 
 	return null
 
+func get_thought_texture_by_resource_id(id: int) -> Texture2D:
+	if is_thought_resource_id_valid(id):
+		return thought_resources[id].texture
+
+	return null
+
 func get_thought_sprite_by_resource_id(id: int) -> Sprite2D:
 	if is_thought_resource_id_valid(id):
 		return thought_resources[id].get_sprite()

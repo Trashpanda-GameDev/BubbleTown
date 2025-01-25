@@ -4,6 +4,9 @@ var current_thoughts: Array[Thought] = []
 
 @export var repository: ThoughtsRepository
 
+signal on_thought_added(thought: Thought)
+signal on_thought_removed(thought: Thought)
+
 func _init(repository: ThoughtsRepository) -> void:
 	self.repository = repository
 
@@ -19,10 +22,14 @@ func get_thought_count(resource_id: int) -> int:
 func add_thought(thought: Thought) -> void:
 	current_thoughts.append(thought)
 
+	on_thought_added.emit(thought)
+
 func remove_thought(thought: Thought) -> bool:
 	for i in range(0, len(current_thoughts)):
 		if thought == current_thoughts[i]:
 			current_thoughts.remove_at(i)
+
+			on_thought_removed.emit(thought)
 
 			return true
 
@@ -31,7 +38,9 @@ func remove_thought(thought: Thought) -> bool:
 func remove_thought_by_id(id: int) -> bool:
 	for i in range(0, len(current_thoughts)):
 		if id == current_thoughts[i].id:
-			current_thoughts.remove_at(i)
+			var thought: Thought = current_thoughts.pop_at(i)
+
+			on_thought_added.emit(thought)
 
 			return true
 
@@ -44,12 +53,16 @@ func add_thought_by_resource_id(id: int) -> bool:
 
 	current_thoughts.append(thought)
 
+	on_thought_added.emit(thought)
+
 	return true
 
 func remove_thought_by_resource_id(id: int) -> bool:
 	for i in range(0, len(current_thoughts)):
 		if id == current_thoughts[i].resource_id:
-			current_thoughts.remove_at(i)
+			var thought: Thought = current_thoughts.pop_at(i)
+
+			on_thought_removed.emit(thought)
 
 			return true
 
