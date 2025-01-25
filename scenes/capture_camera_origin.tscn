@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://gjki46qw4x5m"]
+
+[ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_7a6ig"]
+[ext_resource type="Texture2D" uid="uid://dp4ofqm66onex" path="res://icon.svg" id="2_wyc0j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pkdq1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7a6ig"]
+radius = 5.0
+
+[node name="CaptureCameraOrigin" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.57, 2.57)
+
+[node name="VisionCone" parent="." instance=ExtResource("2_7a6ig")]
+
+[node name="Sprite2D" type="StaticBody2D" parent="."]
+position = Vector2(-64, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
+shape = SubResource("CircleShape2D_pkdq1")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("2_wyc0j")
+
+[node name="hidden" type="StaticBody2D" parent="."]
+position = Vector2(-80, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hidden"]
+shape = SubResource("CircleShape2D_7a6ig")
+
+[node name="Sprite2D" type="Sprite2D" parent="hidden"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_wyc0j")
