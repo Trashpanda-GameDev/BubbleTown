@@ -1,24 +1,122 @@
-[gd_scene load_steps=5 format=3 uid="uid://gjki46qw4x5m"]
+[gd_scene load_steps=11 format=3 uid="uid://gjki46qw4x5m"]
 
 [ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_7a6ig"]
 [ext_resource type="Texture2D" uid="uid://dp4ofqm66onex" path="res://icon.svg" id="2_wyc0j"]
+[ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="3_wyc0j"]
+[ext_resource type="PackedScene" uid="uid://bgor1txup4k06" path="res://scenes/cube_with_highlight.tscn" id="4_bo3sq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pkdq1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7a6ig"]
 radius = 5.0
 
+[sub_resource type="Shader" id="Shader_8j81y"]
+resource_local_to_scene = true
+code = "// This program draws an outline around sprites grouped under a CanvasGroup node.
+shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
+uniform vec4 line_color : source_color = vec4(0, 0, 0, 1);
+uniform float line_thickness = 4.0;
+uniform vec2 viewport_scale = vec2(1.0);
+
+
+void vertex() {
+	VERTEX += (UV * 2.0 - 1.0) * line_thickness;
+}
+
+
+void fragment() {
+    vec2 uv = SCREEN_UV;
+    vec2 size = (SCREEN_PIXEL_SIZE * line_thickness) * viewport_scale;
+
+
+    float outline = texture(screen_texture, uv + vec2(-size.x, 0)).a;
+    outline += texture(screen_texture, uv + vec2(0, size.y)).a;
+    outline += texture(screen_texture, uv + vec2(size.x, 0)).a;
+    outline += texture(screen_texture, uv + vec2(0, -size.y)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.866, size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.5, size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.866, size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.5, size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.866, -size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.5, -size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.866, -size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.5, -size.y * 0.866)).a;
+    outline = min(outline, 1.0);
+
+	vec4 screen_color = texture(screen_texture, SCREEN_UV);
+	COLOR = mix(screen_color, line_color, outline - screen_color.a);
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8loyu"]
+resource_local_to_scene = true
+shader = SubResource("Shader_8j81y")
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/line_thickness = 3.0
+shader_parameter/viewport_scale = Vector2(1, 1)
+
+[sub_resource type="Shader" id="Shader_bo3sq"]
+resource_local_to_scene = true
+code = "// This program draws an outline around sprites grouped under a CanvasGroup node.
+shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
+uniform vec4 line_color : source_color = vec4(0, 0, 0, 1);
+uniform float line_thickness = 4.0;
+uniform vec2 viewport_scale = vec2(1.0);
+
+
+void vertex() {
+	VERTEX += (UV * 2.0 - 1.0) * line_thickness;
+}
+
+
+void fragment() {
+    vec2 uv = SCREEN_UV;
+    vec2 size = (SCREEN_PIXEL_SIZE * line_thickness) * viewport_scale;
+
+
+    float outline = texture(screen_texture, uv + vec2(-size.x, 0)).a;
+    outline += texture(screen_texture, uv + vec2(0, size.y)).a;
+    outline += texture(screen_texture, uv + vec2(size.x, 0)).a;
+    outline += texture(screen_texture, uv + vec2(0, -size.y)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.866, size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.5, size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.866, size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.5, size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.866, -size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(-size.x * 0.5, -size.y * 0.866)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.866, -size.y * 0.5)).a;
+    outline += texture(screen_texture, uv + vec2(size.x * 0.5, -size.y * 0.866)).a;
+    outline = min(outline, 1.0);
+
+	vec4 screen_color = texture(screen_texture, SCREEN_UV);
+	COLOR = mix(screen_color, line_color, outline - screen_color.a);
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8j81y"]
+resource_local_to_scene = true
+shader = SubResource("Shader_bo3sq")
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/line_thickness = 3.0
+shader_parameter/viewport_scale = Vector2(1, 1)
+
 [node name="CaptureCameraOrigin" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.57, 2.57)
-
 [node name="VisionCone" parent="." instance=ExtResource("2_7a6ig")]
-cone_range = 150.0
-raycast_density = 120
+position = Vector2(526.117, 324.895)
+scale = Vector2(0.998975, 1)
+cone_angle = 12.0
+cone_range = 512.0
+raycast_density = 200
 
 [node name="Sprite2D" type="StaticBody2D" parent="."]
-position = Vector2(-64, -8)
+position = Vector2(480.833, 343.663)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
 shape = SubResource("CircleShape2D_pkdq1")
@@ -28,7 +126,7 @@ scale = Vector2(0.11, 0.11)
 texture = ExtResource("2_wyc0j")
 
 [node name="hidden" type="StaticBody2D" parent="."]
-position = Vector2(-80, 16)
+position = Vector2(445.444, 351.242)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hidden"]
 shape = SubResource("CircleShape2D_7a6ig")
@@ -37,14 +135,53 @@ shape = SubResource("CircleShape2D_7a6ig")
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_wyc0j")
 
-[node name="hidden2" type="StaticBody2D" parent="."]
-position = Vector2(-36, 30)
+[node name="hidden3" type="StaticBody2D" parent="."]
+position = Vector2(505.589, 332.051)
+collision_layer = 2
+collision_mask = 3
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hidden2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hidden3"]
+shape = SubResource("CircleShape2D_7a6ig")
+
+[node name="Sprite2D" type="Sprite2D" parent="hidden3"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_wyc0j")
+
+[node name="concaveShape" type="StaticBody2D" parent="."]
+position = Vector2(508.833, 381.663)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="concaveShape"]
 position = Vector2(-3, -3)
 scale = Vector2(11.22, 14.375)
 polygon = PackedVector2Array(-0.155736, -0.417391, 0.557277, -0.0695652, 1.27029, -0.347826, 1, 0, 0.73553, 0.347826, 1.00291, 0.695652, -0.0666094, 0.695652, -0.601369, 0.278261)
 
-[node name="Sprite2D" type="Sprite2D" parent="hidden2"]
+[node name="Sprite2D" type="Sprite2D" parent="concaveShape"]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_wyc0j")
+
+[node name="ingame_cube2" type="StaticBody2D" parent="."]
+position = Vector2(684.415, 209.764)
+scale = Vector2(4.34364, 4.34364)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ingame_cube2"]
+position = Vector2(-3, -3)
+scale = Vector2(11.22, 14.375)
+polygon = PackedVector2Array(-0.72045, -0.238099, 0.26237, -0.686388, 1.25545, -0.230352, 1.25637, 0.654474, 0.269469, 1.10217, -0.722208, 0.654669)
+
+[node name="Sprite2D" type="Sprite2D" parent="ingame_cube2"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_wyc0j")
+
+[node name="CubeWithHighlight3" parent="." instance=ExtResource("4_bo3sq")]
+material = SubResource("ShaderMaterial_8loyu")
+position = Vector2(786.573, 412.774)
+
+[node name="CubeWithHighlight2" parent="." instance=ExtResource("4_bo3sq")]
+material = SubResource("ShaderMaterial_8j81y")
+position = Vector2(550.792, 532.735)
+scale = Vector2(3.9963, 3.9963)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(575.76, 321.509)
+
+[connection signal="hidden" from="VisionCone" to="VisionCone" method="_on_hidden"]

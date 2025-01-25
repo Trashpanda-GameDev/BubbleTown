@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgor1txup4k06"]
+
+[ext_resource type="Shader" path="res://assets/group_outline.gdshader" id="1_2xmdr"]
+[ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="2_crm0y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bo3sq"]
+resource_local_to_scene = true
+shader = ExtResource("1_2xmdr")
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/line_thickness = 3.0
+shader_parameter/viewport_scale = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8j81y"]
+resource_local_to_scene = true
+shader = ExtResource("1_2xmdr")
+shader_parameter/line_color = Color(0.917647, 0.921569, 0, 1)
+shader_parameter/line_thickness = 0.0
+shader_parameter/viewport_scale = Vector2(1, 1)
+
+[node name="CubeWithHighlight2" type="StaticBody2D"]
+material = SubResource("ShaderMaterial_bo3sq")
+scale = Vector2(4, 4)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-3, -3)
+scale = Vector2(11.22, 14.375)
+polygon = PackedVector2Array(-0.72045, -0.238099, 0.26237, -0.686388, 1.25545, -0.230352, 1.25637, 0.654474, 0.269469, 1.10217, -0.722208, 0.654669)
+
+[node name="Highlight" type="CanvasGroup" parent="."]
+material = SubResource("ShaderMaterial_8j81y")
+
+[node name="Sprite2D" type="Sprite2D" parent="Highlight"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_crm0y")

@@ -10,18 +10,57 @@ extends Node2D
 @export_category("Raycasts")
 @export var raycast_density := 32 ## the amount of raycasts spread throughout the cone more density is higher accuracy detection, but less performance
 @export var update_frequency := 60.0 ## physics updates per second, higher number is less jitter but more calculations
-@export_flags_2d_physics var detection_layers: int = 1 ## the layers of collision objects that can be detected by the raycasts
+@export_flags_2d_physics var blocking_layers: int = 1 ## the layers of collision objects that can be detected by the raycasts and block vision
+@export_flags_2d_physics var pass_through_layers: int = 2  ## the layers of collision objects that can be detected by the raycasts
 
-var current_rotation := 0.0
 var cone_points: PackedVector2Array
+var iso_y_scale := 0.58  # Typical isometric Y scale factor
+var current_rotation := 0.0
 var update_timer := 0.0
 var target_rotation := 0.0
+var hit_objects = {}
 
 func _ready():
 	check_obstacles()
 
 func _draw():
+	if(!self.visible): return;
+	
 	draw_colored_polygon(cone_points, cone_color)
+
+func _process(delta):
+	handle_mouse_input()
+	handle_controller_input()
+	
+	if(!self.visible): return;
+	
+	# Smooth the rotation
+	current_rotation = lerp_angle(current_rotation, target_rotation, rotation_speed * delta)
+	check_obstacles()
+
+func _physics_process(delta):
+	if(!self.visible): return;
+	
+	clear_last_frames_hitobjects()
+	update_timer += delta
+	if update_timer >= 1.0 / update_frequency:
+		update_timer = 0.0
+		check_obstacles()
+
+func get_current_objects_in_view() -> Array:
+	var currentObjects = []
+	for obj in hit_objects:
+		if obj is CanvasGroup:
+			currentObjects.push(obj)
+	
+	return currentObjects
+
+func clear_last_frames_hitobjects() -> void:
+	# Clear previous frame's hit objects
+	for obj in hit_objects:
+		if obj is CanvasGroup:
+			obj.material.set_shader_parameter("line_thickness", 0.0)
+	hit_objects.clear()
 
 func update_cone_shape():
 	cone_points = PackedVector2Array()
@@ -40,12 +79,6 @@ func update_cone_shape():
 	
 	queue_redraw() # ensure visual update
 
-func _physics_process(delta):
-	update_timer += delta
-	if update_timer >= 1.0 / update_frequency:
-		update_timer = 0.0
-		check_obstacles()
-
 func check_obstacles():
 	var space_state = get_world_2d().direct_space_state
 	var updated_points = PackedVector2Array([Vector2.ZERO])
@@ -54,42 +87,45 @@ func check_obstacles():
 	
 	for i in range(raycast_density + 1):
 		var base_angle = lerp(angle_start, angle_end, float(i) / raycast_density)
-		# Use current_rotation instead of target_rotation for smooth transitions
 		var angle = deg_to_rad(base_angle) + current_rotation
-		var ray_direction = Vector2(cos(angle), sin(angle)) * cone_range
+		var ray_direction = Vector2( cos(angle) * cone_range, sin(angle) * cone_range * iso_y_scale	)
 		
-		var query = PhysicsRayQueryParameters2D.create(
-			global_position,
-			global_position + ray_direction
-		)
-		query.collision_mask = detection_layers
+		var query = PhysicsRayQueryParameters2D.create( global_position, global_position + ray_direction )
+		query.collision_mask = blocking_layers
+		
 		var result = space_state.intersect_ray(query)
-		
 		if result:
-			var local_collision = result.position - global_position
-			updated_points.append(local_collision)
+			var highlightNode : CanvasGroup = result.collider.find_child("Highlight")
+			# Store hit object's CanvasGroup
+			if highlightNode is CanvasGroup:
+				var canvas_group = highlightNode
+				if not hit_objects.has(highlightNode):
+					hit_objects[canvas_group] = true
+					canvas_group.material.set_shader_parameter("line_thickness", 4.0)
+			
+			if result.collider.collision_layer & pass_through_layers:
+				updated_points.append(ray_direction)
+			else:
+				var local_collision = result.position - global_position
+				updated_points.append(local_collision)
 		else:
 			updated_points.append(ray_direction)
 	
 	cone_points = updated_points
 	queue_redraw()
 
-func _process(delta):
-	handle_mouse_input()
-	handle_controller_input()
-	# Smooth the rotation using lerp_angle
-	current_rotation = lerp_angle(current_rotation, target_rotation, rotation_speed * delta)
-	check_obstacles()
-
-
-# Update handle_mouse_input to just store the angle
 func handle_mouse_input() -> void:
+	if(!self.visible): return;
+	
+	# get angle with mouse input
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		var mouse_pos = get_global_mouse_position()
 		target_rotation = (mouse_pos - global_position).angle()
 
-# Update handle_controller_input similarly
 func handle_controller_input() -> void:
+	if(!self.visible): return;
+	
+	# get angle with controller input
 	var stick_input = Vector2(
 		Input.get_axis("camera_left", "camera_right"),
 		Input.get_axis("camera_up", "camera_down")
@@ -97,3 +133,6 @@ func handle_controller_input() -> void:
 	
 	if stick_input.length() > 0.1:
 		target_rotation = stick_input.angle()
+
+func _on_hidden() -> void:
+	clear_last_frames_hitobjects()
