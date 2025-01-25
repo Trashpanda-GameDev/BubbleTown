@@ -1,9 +1,45 @@
 [gd_scene load_steps=2 format=3 uid="uid://bnmeai2ydmcuk"]
 
-[ext_resource type="Texture2D" path="res://icon.svg" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://byawh2d1dsrk1" path="res://scenes/main_menu.gd" id="1_l6cm7"]
 
-[node name="MainMenu" type="Node2D"]
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("1_l6cm7")
+metadata/_edit_use_anchors_ = true
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(611, 314)
-texture = ExtResource("1_l6cm7")
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -188.0
+offset_top = -192.0
+offset_right = 188.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="startBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "New game"
+
+[node name="highscoreBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Highscore"
+
+[node name="exitBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Exit
+"
+
+[connection signal="pressed" from="VBoxContainer/startBtn" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/highscoreBtn" to="." method="_on_highscore_pressed"]
+[connection signal="pressed" from="VBoxContainer/exitBtn" to="." method="_on_exit_game_pressed"]
