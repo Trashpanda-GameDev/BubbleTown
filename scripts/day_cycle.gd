@@ -6,9 +6,9 @@ signal updateTime
 
 @onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 
-var animationLengthInSeconds = 360
-@export var hourInterval = 30
-var lastTriggeredTime = -1
+var animationLengthInSeconds := 360
+@export var hourInterval := 30
+var lastTriggeredTime := -1
 
 var dayTime: DAY_STATE = DAY_STATE.MORNING
 
@@ -18,7 +18,7 @@ func _ready() -> void:
 	add_to_group("DayCycle")
 	
 func _process(delta: float) -> void:
-	var currentAnimationPosition = animationPlayer.current_animation_position
+	var currentAnimationPosition := animationPlayer.current_animation_position
 	
 	if currentAnimationPosition < 50 && dayTime != DAY_STATE.DAWN:
 		dayTime = DAY_STATE.DAWN
@@ -40,10 +40,8 @@ func _process(delta: float) -> void:
 		check_and_trigger_signal(animationPlayer.current_animation_position)
 
 
-func check_and_trigger_signal(currentTime):
-	var timeAsInt = int(currentTime)
-
-	if timeAsInt % hourInterval == 0 && timeAsInt != lastTriggeredTime:
-		lastTriggeredTime = timeAsInt
+func check_and_trigger_signal(currentTime: int) -> void:
+	if currentTime % hourInterval == 0 && currentTime != lastTriggeredTime:
+		lastTriggeredTime = currentTime
 		updateTime.emit(currentTime)
 		
