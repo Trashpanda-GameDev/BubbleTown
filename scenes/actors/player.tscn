@@ -33,6 +33,7 @@ scale = Vector2(1.2, 0.939825)
 shape = SubResource("CapsuleShape2D_mvpqy")
 
 [node name="endOfDayPrompt" type="Control" parent="."]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
