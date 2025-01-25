@@ -1,7 +1,22 @@
 [gd_scene load_steps=8 format=4 uid="uid://cpl2fu5au2wx2"]
 
-[ext_resource type="Script" uid="uid://d26ymlecpchdk" path="res://scenes/day_cycle.gd" id="1_f2a5t"]
+[ext_resource type="Script" uid="uid://d26ymlecpchdk" path="res://scripts/day_cycle.gd" id="1_f2a5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="1_gt07c"]
+
+[sub_resource type="Animation" id="Animation_eruj1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.396747, 0.632656, 0.92471, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ms2es"]
 resource_name = "day_cycle_animation"
@@ -18,21 +33,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(0.915662, 0.891866, 0.992276, 1), Color(0.878431, 0.584314, 0.309804, 1), Color(0.682929, 0.543463, 0.901459, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_eruj1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.396747, 0.632656, 0.92471, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1jyyf"]

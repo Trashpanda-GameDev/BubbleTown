@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://iroojfk3nc1y"]
 
-[ext_resource type="Script" uid="uid://b3ue213ndk05d" path="res://scenes/vision_cone.gd" id="1_a2nto"]
+[ext_resource type="Script" uid="uid://b3ue213ndk05d" path="res://scripts/vision_cone.gd" id="1_a2nto"]
 
 [node name="VisionCone" type="Node2D"]
 script = ExtResource("1_a2nto")
