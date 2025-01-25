@@ -68,7 +68,6 @@ offset_bottom = 20.0
 position = Vector2(-278, 130)
 color = Color(0.831004, 0.81616, 0.919744, 1)
 script = ExtResource("1_f2a5t")
-hourInterval = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DayCycle"]
 libraries = {
