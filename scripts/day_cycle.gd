@@ -12,7 +12,7 @@ var lastTriggeredTime = -1
 
 var dayTime: DAY_STATE = DAY_STATE.MORNING
 
-enum DAY_STATE{MORNING, AFTERNOON, EVENING, NIGHT}
+enum DAY_STATE{DAWN, MORNING, AFTERNOON, EVENING, NIGHT}
 
 func _ready() -> void:
 	add_to_group("DayCycle")
@@ -20,7 +20,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var currentAnimationPosition = animationPlayer.current_animation_position
 	
-	if currentAnimationPosition < 180 && dayTime != DAY_STATE.MORNING:
+	if currentAnimationPosition < 50 != DAY_STATE.DAWN:
+		dayTime = DAY_STATE.DAWN
+		changeDayTime.emit(dayTime)
+	elif currentAnimationPosition > 50 && currentAnimationPosition < 180 && dayTime != DAY_STATE.MORNING:
 		dayTime = DAY_STATE.MORNING
 		changeDayTime.emit(dayTime)
 	elif currentAnimationPosition > 180 && currentAnimationPosition < 300 && dayTime != DAY_STATE.AFTERNOON: 
