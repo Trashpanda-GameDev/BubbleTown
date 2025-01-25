@@ -21,12 +21,18 @@ var target_rotation := 0.0
 var hit_objects = {}
 
 func _ready():
+	if(!self.visible): return;
+	
 	check_obstacles()
 
 func _draw():
 	if(!self.visible): return;
 	
 	draw_colored_polygon(cone_points, cone_color)
+
+func _input(event):
+	if event.is_action_pressed("camera_mode"):
+		toggle_camera_mode()
 
 func _process(delta):
 	handle_mouse_input()
@@ -54,6 +60,9 @@ func get_current_objects_in_view() -> Array:
 			currentObjects.push(obj)
 	
 	return currentObjects
+
+func toggle_camera_mode() -> void:
+	self.visible = !self.visible
 
 func clear_last_frames_hitobjects() -> void:
 	# Clear previous frame's hit objects

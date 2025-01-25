@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b3ue213ndk05d" path="res://scripts/vision_cone.gd" id="1_a2nto"]
 
 [node name="VisionCone" type="Node2D"]
+visible = false
 script = ExtResource("1_a2nto")
 cone_range = 512.0
 raycast_density = 200

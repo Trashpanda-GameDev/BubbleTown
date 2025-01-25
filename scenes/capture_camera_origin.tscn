@@ -109,6 +109,7 @@ shader_parameter/viewport_scale = Vector2(1, 1)
 [node name="CaptureCameraOrigin" type="Node2D"]
 
 [node name="VisionCone" parent="." instance=ExtResource("2_7a6ig")]
+visible = false
 position = Vector2(526.117, 324.895)
 
 [node name="Sprite2D" type="StaticBody2D" parent="."]
