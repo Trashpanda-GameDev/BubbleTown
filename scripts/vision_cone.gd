@@ -12,6 +12,7 @@ extends Node2D
 @export var update_frequency := 60.0 ## physics updates per second, higher number is less jitter but more calculations
 @export_flags_2d_physics var detection_layers: int = 1 ## the layers of collision objects that can be detected by the raycasts
 
+var current_rotation := 0.0
 var cone_points: PackedVector2Array
 var update_timer := 0.0
 var target_rotation := 0.0
@@ -36,8 +37,8 @@ func update_cone_shape():
 			sin(angle) * cone_range
 		)
 		cone_points.append(point)
-	# Add this line to ensure visual update
-	queue_redraw()
+	
+	queue_redraw() # ensure visual update
 
 func _physics_process(delta):
 	update_timer += delta
@@ -50,26 +51,24 @@ func check_obstacles():
 	var updated_points = PackedVector2Array([Vector2.ZERO])
 	var angle_start = -cone_angle / 2
 	var angle_end = cone_angle / 2
-	var num_points = 32
 	
-	for i in range(num_points + 1):
-		var angle = deg_to_rad(lerp(angle_start, angle_end, float(i) / num_points))
+	for i in range(raycast_density + 1):
+		var base_angle = lerp(angle_start, angle_end, float(i) / raycast_density)
+		# Use current_rotation instead of target_rotation for smooth transitions
+		var angle = deg_to_rad(base_angle) + current_rotation
 		var ray_direction = Vector2(cos(angle), sin(angle)) * cone_range
 		
 		var query = PhysicsRayQueryParameters2D.create(
 			global_position,
-			global_position + ray_direction.rotated(global_rotation)
+			global_position + ray_direction
 		)
 		query.collision_mask = detection_layers
 		var result = space_state.intersect_ray(query)
 		
 		if result:
-			print("result!", result.collider)
-			# Convert hit position to local coordinates
-			var local_collision = to_local(result.position)
+			var local_collision = result.position - global_position
 			updated_points.append(local_collision)
 		else:
-			# If no hit, use full ray length
 			updated_points.append(ray_direction)
 	
 	cone_points = updated_points
@@ -78,19 +77,23 @@ func check_obstacles():
 func _process(delta):
 	handle_mouse_input()
 	handle_controller_input()
-	# Smooth rotation
-	rotation = lerp_angle(rotation, target_rotation, rotation_speed * delta)
+	# Smooth the rotation using lerp_angle
+	current_rotation = lerp_angle(current_rotation, target_rotation, rotation_speed * delta)
+	check_obstacles()
 
+
+# Update handle_mouse_input to just store the angle
 func handle_mouse_input() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		var mouse_pos = get_global_mouse_position()
 		target_rotation = (mouse_pos - global_position).angle()
 
+# Update handle_controller_input similarly
 func handle_controller_input() -> void:
 	var stick_input = Vector2(
 		Input.get_axis("camera_left", "camera_right"),
 		Input.get_axis("camera_up", "camera_down")
 	)
 	
-	if stick_input.length() > 0.1:  # Add deadzone
+	if stick_input.length() > 0.1:
 		target_rotation = stick_input.angle()

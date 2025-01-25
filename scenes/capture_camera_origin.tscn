@@ -14,6 +14,8 @@ radius = 5.0
 zoom = Vector2(2.57, 2.57)
 
 [node name="VisionCone" parent="." instance=ExtResource("2_7a6ig")]
+cone_range = 150.0
+raycast_density = 120
 
 [node name="Sprite2D" type="StaticBody2D" parent="."]
 position = Vector2(-64, -8)
@@ -33,4 +35,16 @@ shape = SubResource("CircleShape2D_7a6ig")
 
 [node name="Sprite2D" type="Sprite2D" parent="hidden"]
 scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_wyc0j")
+
+[node name="hidden2" type="StaticBody2D" parent="."]
+position = Vector2(-36, 30)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hidden2"]
+position = Vector2(-3, -3)
+scale = Vector2(11.22, 14.375)
+polygon = PackedVector2Array(-0.155736, -0.417391, 0.557277, -0.0695652, 1.27029, -0.347826, 1, 0, 0.73553, 0.347826, 1.00291, 0.695652, -0.0666094, 0.695652, -0.601369, 0.278261)
+
+[node name="Sprite2D" type="Sprite2D" parent="hidden2"]
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_wyc0j")
