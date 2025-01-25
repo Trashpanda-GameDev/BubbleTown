@@ -20,7 +20,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var currentAnimationPosition = animationPlayer.current_animation_position
 	
-	if currentAnimationPosition < 50 != DAY_STATE.DAWN:
+	if currentAnimationPosition < 50 && dayTime != DAY_STATE.DAWN:
 		dayTime = DAY_STATE.DAWN
 		changeDayTime.emit(dayTime)
 	elif currentAnimationPosition > 50 && currentAnimationPosition < 180 && dayTime != DAY_STATE.MORNING:

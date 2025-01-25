@@ -1,46 +1,7 @@
-[gd_scene load_steps=9 format=4 uid="uid://cpl2fu5au2wx2"]
+[gd_scene load_steps=5 format=4 uid="uid://cpl2fu5au2wx2"]
 
-[ext_resource type="Script" uid="uid://d26ymlecpchdk" path="res://scripts/day_cycle.gd" id="1_f2a5t"]
+[ext_resource type="PackedScene" uid="uid://b7kytukal1of8" path="res://scenes/daily_cycle.tscn" id="1_f2a5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="1_gt07c"]
-[ext_resource type="PackedScene" uid="uid://chdcyda3cu3k0" path="res://scenes/day_and_time.tscn" id="3_ms2es"]
-
-[sub_resource type="Animation" id="Animation_eruj1"]
-length = 360.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 50, 184.1, 300, 360),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(0.690677, 0.771796, 0.976782, 1), Color(0.88067, 0.912466, 0.99077, 1), Color(1, 1, 1, 1), Color(0.982253, 0.569723, 0.560609, 1), Color(0.593308, 0.364341, 0.714165, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ms2es"]
-resource_name = "day_cycle_animation"
-length = 120.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 80, 120),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(0.915662, 0.891866, 0.992276, 1), Color(0.878431, 0.584314, 0.309804, 1), Color(0.682929, 0.543463, 0.901459, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1jyyf"]
-_data = {
-&"RESET": SubResource("Animation_eruj1"),
-&"day_cycle_animation": SubResource("Animation_ms2es")
-}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gt07c"]
 texture = ExtResource("1_gt07c")
@@ -58,22 +19,7 @@ sources/0 = SubResource("TileSetAtlasSource_gt07c")
 
 [node name="Town" type="Node2D"]
 
-[node name="DayAndTime" parent="." instance=ExtResource("3_ms2es")]
-offset_left = 964.0
-offset_top = 20.0
-offset_right = 964.0
-offset_bottom = 20.0
-
-[node name="DayCycle" type="CanvasModulate" parent="."]
-position = Vector2(-278, 130)
-color = Color(0.690677, 0.771796, 0.976782, 1)
-script = ExtResource("1_f2a5t")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DayCycle"]
-libraries = {
-&"": SubResource("AnimationLibrary_1jyyf")
-}
-autoplay = "RESET"
+[node name="DailyCycle" parent="." instance=ExtResource("1_f2a5t")]
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -93,5 +39,3 @@ texture = ExtResource("1_gt07c")
 position = Vector2(-1112, -192)
 scale = Vector2(2, 2)
 texture = ExtResource("1_gt07c")
-
-[connection signal="updateTime" from="DayCycle" to="DayAndTime" method="_on_day_cycle_update_time"]
