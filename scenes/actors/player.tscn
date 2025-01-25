@@ -1,24 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://pqugpw34luat"]
+[gd_scene load_steps=5 format=3 uid="uid://pqugpw34luat"]
 
+[ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_ktjr4"]
 [ext_resource type="Script" uid="uid://dl7i44qr3xg8n" path="res://scripts/actors/PlayerMovement.gd" id="2_l2i5t"]
-[ext_resource type="Texture2D" uid="uid://bkvnripe85vmn" path="res://icon.svg" id="2_ru62r"]
+[ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="3_7wueq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mvpqy"]
-radius = 96.0
-height = 256.0
+radius = 93.3333
+height = 357.513
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("character")]
+y_sort_enabled = true
 script = ExtResource("2_l2i5t")
 character = NodePath(".")
 max_speed = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_mvpqy")
+[node name="VisionCone" parent="." instance=ExtResource("2_ktjr4")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -2)
-scale = Vector2(1.4, 1.75855)
-texture = ExtResource("2_ru62r")
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+modulate = Color(1, 0.133333, 1, 1)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasGroup"]
+texture = ExtResource("3_7wueq")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasGroup/Sprite2D"]
+position = Vector2(0, -128)
+texture = ExtResource("3_7wueq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -64)
+scale = Vector2(1.2, 0.939825)
+shape = SubResource("CapsuleShape2D_mvpqy")
 
 [node name="endOfDayPrompt" type="Control" parent="."]
 layout_mode = 3
