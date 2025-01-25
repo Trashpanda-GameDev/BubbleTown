@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://crh318qkn16an"]
+
+[ext_resource type="Script" uid="uid://cnweestfpek4w" path="res://scripts/gameplay/ui/ThoughtsInventoryView.gd" id="1_jycbw"]
+[ext_resource type="Resource" uid="uid://bjt30nixo7oef" path="res://resources/thoughts/ThoughtsRepository.tres" id="2_hcc8s"]
+[ext_resource type="PackedScene" uid="uid://cpf00ah8q5nci" path="res://scenes/ui/thoughts/inventory/ThoughtInventoryItemView.tscn" id="3_0fpt5"]
+
+[node name="ThoughtsInventoryView" type="Control" node_paths=PackedStringArray("grid")]
+layout_mode = 3
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jycbw")
+repository = ExtResource("2_hcc8s")
+grid = NodePath("GridContainer")
+itemViewTemplate = ExtResource("3_0fpt5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.513726, 0.513726, 0.513726, 0.603922)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4

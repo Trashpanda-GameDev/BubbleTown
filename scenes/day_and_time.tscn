@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://chdcyda3cu3k0"]
+
+[ext_resource type="Script" uid="uid://bjost6cxxwovw" path="res://scripts/day_and_time.gd" id="1_kjdcb"]
+
+[node name="DayAndTime" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 0
+script = ExtResource("1_kjdcb")
+
+[node name="DayControl" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 4.0
+offset_right = 29.0
+offset_bottom = 27.0
+
+[node name="day" type="Label" parent="DayControl"]
+layout_mode = 1
+offset_right = 28.0
+offset_bottom = 23.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeControl" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 29.0
+offset_right = 44.0
+offset_bottom = 50.0
+
+[node name="hours" type="Label" parent="TimeControl"]
+layout_mode = 0
+offset_right = 19.0
+offset_bottom = 23.0
+text = "09"
+horizontal_alignment = 2
+
+[node name="column" type="Label" parent="TimeControl"]
+layout_mode = 0
+offset_left = 19.0
+offset_right = 24.0
+offset_bottom = 23.0
+text = ":"
+
+[node name="minutes" type="Label" parent="TimeControl"]
+layout_mode = 0
+offset_left = 24.0
+offset_right = 43.0
+offset_bottom = 23.0
+text = "00"
+
+[node name="BackgroundPanel" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+region_rect = Rect2(0, 0, 257, 256)
