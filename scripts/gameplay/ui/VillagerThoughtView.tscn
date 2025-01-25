@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://dslwxv0rhwedh"]
+
+[ext_resource type="Script" uid="uid://qe6wl5jg345n" path="res://scripts/actors/ui/VillagerThoughtView.gd" id="1_gjgnb"]
+
+[node name="VillagerThoughtView" type="Control" node_paths=PackedStringArray("texture")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gjgnb")
+texture = NodePath("Background/ThoughtTextureRect")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ThoughtTextureRect" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1

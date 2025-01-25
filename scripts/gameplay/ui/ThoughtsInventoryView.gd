@@ -19,6 +19,9 @@ func _init() -> void:
 	inventory.on_thought_added.connect(_handle_added_thought)
 	inventory.on_thought_removed.connect(_handle_removed_thought)
 
+	# ensure hidden on startup
+	self.visible = false
+
 # TODO: move from here
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("open_inventory"):

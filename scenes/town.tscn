@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cpl2fu5au2wx2"]
+[gd_scene load_steps=14 format=4 uid="uid://cpl2fu5au2wx2"]
 
 [ext_resource type="PackedScene" uid="uid://b7kytukal1of8" path="res://scenes/daily_cycle.tscn" id="1_f2a5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="1_gt07c"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://cjsf8cyf1rfh7" path="res://scenes/player_house.tscn" id="4_1jyyf"]
 [ext_resource type="PackedScene" uid="uid://b3rsrqax7mvaa" path="res://scenes/post_picture_screen.tscn" id="6_t6cq8"]
 [ext_resource type="Script" uid="uid://bb633akt1q35o" path="res://scripts/post_picture_screen.gd" id="7_cq4yp"]
+[ext_resource type="Script" uid="uid://hnxd401h42ti" path="res://scripts/actors/VillagersSystem.gd" id="8_v3ani"]
+[ext_resource type="Script" uid="uid://ckcru3sgwqopy" path="res://scripts/actors/VillagersThoughtSystem.gd" id="8_yn4qk"]
+[ext_resource type="Resource" uid="uid://bjt30nixo7oef" path="res://resources/thoughts/ThoughtsRepository.tres" id="10_5q1rr"]
+[ext_resource type="PackedScene" uid="uid://budbwjk0akuds" path="res://scenes/actors/villager.tscn" id="11_po04c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gt07c"]
 texture = ExtResource("1_gt07c")
@@ -23,6 +27,7 @@ tile_size = Vector2i(222, 128)
 sources/0 = SubResource("TileSetAtlasSource_gt07c")
 
 [node name="Town" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 360.0
@@ -71,6 +76,22 @@ position = Vector2(755, 215)
 [node name="Player" parent="." instance=ExtResource("3_eruj1")]
 position = Vector2(178, 466)
 max_speed = 3
+
+[node name="Villagers" type="Node2D" parent="." node_paths=PackedStringArray("villagers")]
+y_sort_enabled = true
+script = ExtResource("8_v3ani")
+villagers = [NodePath("Villager")]
+
+[node name="Systems" type="Node" parent="Villagers"]
+
+[node name="VillagersThoughtSystem" type="Node" parent="Villagers/Systems" node_paths=PackedStringArray("villagers_system")]
+script = ExtResource("8_yn4qk")
+villagers_system = NodePath("../..")
+thoughts_repository = ExtResource("10_5q1rr")
+metadata/_custom_type_script = ExtResource("8_yn4qk")
+
+[node name="Villager" parent="Villagers" instance=ExtResource("11_po04c")]
+position = Vector2(576, 480)
 
 [connection signal="timeout" from="Timer" to="UI/PostPictureScreen" method="_on_timer_timeout"]
 [connection signal="toggleEndDayPrompt" from="PlayerHouse" to="Player" method="_on_player_house_toggle_end_day_prompt"]
