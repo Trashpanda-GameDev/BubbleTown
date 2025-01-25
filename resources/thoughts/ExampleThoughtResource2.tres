@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ThoughtResource" load_steps=3 format=3 uid="uid://7wikky533h76"]
+
+[ext_resource type="Script" uid="uid://bbwkwgf3s8ah3" path="res://scripts/gameplay/ThoughtResource.gd" id="1_60ace"]
+[ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="2_60ace"]
+
+[resource]
+script = ExtResource("1_60ace")
+texture = ExtResource("2_60ace")
+metadata/_custom_type_script = ExtResource("1_60ace")

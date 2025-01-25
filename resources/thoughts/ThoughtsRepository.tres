@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ThoughtsRepository" load_steps=4 format=3 uid="uid://bjt30nixo7oef"]
+[gd_resource type="Resource" script_class="ThoughtsRepository" load_steps=5 format=3 uid="uid://bjt30nixo7oef"]
 
 [ext_resource type="Script" uid="uid://biynvig1ppy2n" path="res://scripts/gameplay/ThoughtsRepository.gd" id="1_fu11l"]
 [ext_resource type="Script" uid="uid://bbwkwgf3s8ah3" path="res://scripts/gameplay/ThoughtResource.gd" id="2_vksjx"]
 [ext_resource type="Resource" uid="uid://b0r8gutyu8dec" path="res://resources/thoughts/ExampleThoughtResource.tres" id="3_vksjx"]
+[ext_resource type="Resource" uid="uid://7wikky533h76" path="res://resources/thoughts/ExampleThoughtResource2.tres" id="4_0wfit"]
 
 [resource]
 script = ExtResource("1_fu11l")
-thought_resources = Array[ExtResource("2_vksjx")]([ExtResource("3_vksjx")])
+thought_resources = Array[ExtResource("2_vksjx")]([ExtResource("3_vksjx"), ExtResource("4_0wfit")])
 metadata/_custom_type_script = ExtResource("1_fu11l")
