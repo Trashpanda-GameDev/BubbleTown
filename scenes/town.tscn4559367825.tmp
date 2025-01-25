@@ -25,7 +25,7 @@ sources/0 = SubResource("TileSetAtlasSource_gt07c")
 [node name="Town" type="Node2D"]
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 360.0
+wait_time = 5.0
 autostart = true
 
 [node name="DailyCycle" parent="." instance=ExtResource("1_f2a5t")]
@@ -74,4 +74,3 @@ max_speed = 3
 
 [connection signal="timeout" from="Timer" to="UI/PostPictureScreen" method="_on_timer_timeout"]
 [connection signal="toggleEndDayPrompt" from="PlayerHouse" to="Player" method="_on_player_house_toggle_end_day_prompt"]
-[connection signal="endDayCycle" from="Player" to="UI/PostPictureScreen" method="_on_player_end_day_cycle"]

@@ -12,6 +12,8 @@ var velocity: Vector2 = Vector2.ZERO
 
 var _has_end_day_prompt: bool = false
 
+signal endDayCycle
+
 func _ready() -> void:
 	$endOfDayPrompt.hide()
 
@@ -56,3 +58,6 @@ func toggle_end_day_prompt(show_prompt: bool) -> void:
 
 func _on_player_house_toggle_end_day_prompt(show_prompt: bool) -> void:
 	has_end_day_prompt = show_prompt
+
+func _on_yes_btn_pressed() -> void:
+	endDayCycle.emit()
