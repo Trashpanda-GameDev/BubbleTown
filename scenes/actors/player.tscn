@@ -10,6 +10,7 @@ friction = 0.0
 
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("rigidbody")]
 y_sort_enabled = true
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_ktjr4")
 gravity_scale = 0.0
 can_sleep = false
@@ -31,12 +32,6 @@ texture = ExtResource("3_7wueq")
 [node name="Sprite2D2" type="Sprite2D" parent="CanvasGroup/Sprite2D"]
 position = Vector2(0, -128)
 texture = ExtResource("3_7wueq")
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-top_level = true
-position = Vector2(0, 24)
-scale = Vector2(1.2, 0.939825)
-polygon = PackedVector2Array(0, -25.5367, 93.3333, 42.5611, 0, 110.659, -93.3333, 42.5611)
 
 [node name="endOfDayPrompt" type="Control" parent="."]
 z_index = 1
@@ -70,5 +65,11 @@ text = "Time to post the picture"
 
 [node name="InteractionSounds" parent="." instance=ExtResource("3_ktjr4")]
 root_path = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+top_level = true
+position = Vector2(0, 24)
+scale = Vector2(1.2, 0.939825)
+polygon = PackedVector2Array(0, -25.5367, 93.3333, 42.5611, 0, 110.659, -93.3333, 42.5611)
 
 [connection signal="pressed" from="endOfDayPrompt/VBoxContainer/BoxContainer/yesBtn" to="." method="_on_yes_btn_pressed"]
