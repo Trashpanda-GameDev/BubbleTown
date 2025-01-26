@@ -6,6 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bo3sq"]
 resource_local_to_scene = true
 shader = ExtResource("1_2xmdr")
+shader_parameter/is_enabled = true
 shader_parameter/line_color = Color(0, 0, 0, 1)
 shader_parameter/line_thickness = 3.0
 shader_parameter/viewport_scale = Vector2(1, 1)
@@ -13,6 +14,7 @@ shader_parameter/viewport_scale = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8j81y"]
 resource_local_to_scene = true
 shader = ExtResource("1_2xmdr")
+shader_parameter/is_enabled = true
 shader_parameter/line_color = Color(0.917647, 0.921569, 0, 1)
 shader_parameter/line_thickness = 0.0
 shader_parameter/viewport_scale = Vector2(1, 1)

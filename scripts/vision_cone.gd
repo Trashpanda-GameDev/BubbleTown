@@ -1,4 +1,4 @@
-extends Node2D
+class_name VisionCone extends Node2D
 
 # Main params
 @export_category("Cone")
@@ -18,7 +18,7 @@ var iso_y_scale := 0.58  # Typical isometric Y scale factor
 var current_rotation := 0.0
 var update_timer := 0.0
 var target_rotation := 0.0
-var hit_objects: Dictionary = {}
+var hit_objects: Dictionary[Object, bool] = {}
 
 func _ready() -> void:
 	if(!self.visible): return;
@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 func get_current_objects_in_view() -> Array:
 	var currentObjects: Array[CanvasGroup] = []
 	for obj: Object in hit_objects:
-		if obj is CanvasGroup:
+		if obj is CanvasGroup or obj is POI:
 			currentObjects.append(obj)
 	
 	return currentObjects
@@ -67,8 +67,12 @@ func toggle_camera_mode() -> void:
 func clear_last_frames_hitobjects() -> void:
 	# Clear previous frame's hit objects
 	for obj: Object in hit_objects:
-		if obj is CanvasGroup:
-			obj.material.set_shader_parameter("line_thickness", 0.0)
+		if obj is POI:
+			var highlightNode: CanvasGroup = obj.find_child("Highlight")
+			highlightNode.material.set_shader_parameter("is_enabled", false)
+		if obj is CanvasGroup or obj is POI:
+			obj.material.set_shader_parameter("is_enabled", false)
+
 	hit_objects.clear()
 
 func update_cone_shape() -> void:
@@ -104,14 +108,20 @@ func check_obstacles() -> void:
 		
 		var result := space_state.intersect_ray(query)
 		if result:
-			var highlightNode : CanvasGroup = result.collider.find_child("Highlight")
-			# Store hit object's CanvasGroup
-			if highlightNode is CanvasGroup:
-				var canvas_group := highlightNode
-				if not hit_objects.has(highlightNode):
-					hit_objects[canvas_group] = true
-					canvas_group.material.set_shader_parameter("line_thickness", 4.0)
-			
+			if result.collider is POI and not hit_objects.has(result.collider):
+				var poi: POI = result.collider
+				hit_objects[poi] = true
+				var highlightNode : CanvasGroup = result.collider.find_child("Highlight")
+				highlightNode.material.set_shader_parameter("is_enabled", true)
+			else:
+				var highlightNode : CanvasGroup = result.collider.find_child("Highlight")
+				# Store hit object's CanvasGroup
+				if highlightNode is CanvasGroup:
+					var canvas_group := highlightNode
+					if not hit_objects.has(highlightNode):
+						hit_objects[canvas_group] = true
+						canvas_group.material.set_shader_parameter("is_enabled", true)
+
 			if result.collider.collision_layer & pass_through_layers:
 				updated_points.append(ray_direction)
 			else:
