@@ -3,16 +3,16 @@ extends Node
 @export var root_path : NodePath
 
 # create audio player instances
-@onready var sounds = {
+@onready var sounds: Dictionary[String, AudioStreamPlayer] = {
 	&"bubble_pop_hover" : AudioStreamPlayer.new(),
 	&"bubble_pop_click" : AudioStreamPlayer.new(),
-	}
+}
 
 func _ready() -> void:
 	assert(root_path != null, "Empty root path for Interface Sounds!")
 
 	# set up audio stream players and load sound files
-	for i in sounds.keys():
+	for i: String in sounds.keys():
 		sounds[i].stream = load("res://audio/" + str(i) + ".wav")
 		# assign output mixer bus
 		sounds[i].bus = &"Sfx"
