@@ -6,12 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://dslwxv0rhwedh" path="res://scripts/gameplay/ui/VillagerThoughtView.tscn" id="4_iqhb6"]
 [ext_resource type="Script" uid="uid://cybmqqhhx016r" path="res://scripts/enable_when_player_is_below.gd" id="5_foovk"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iqhb6"]
-radius = 93.3333
-height = 357.513
-
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_iqhb6"]
 friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iqhb6"]
+radius = 140.0
+height = 544.782
 
 [node name="Villager" type="Node2D" node_paths=PackedStringArray("thought", "thoughtView")]
 y_sort_enabled = true
@@ -33,15 +33,7 @@ texture = ExtResource("3_iqhb6")
 position = Vector2(0, -128)
 texture = ExtResource("3_iqhb6")
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -56)
-scale = Vector2(1.2, 0.939825)
-shape = SubResource("CapsuleShape2D_iqhb6")
-
 [node name="VillagerThoughtView" parent="." instance=ExtResource("4_iqhb6")]
-visible = false
 z_index = 1
 custom_minimum_size = Vector2(64, 64)
 anchors_preset = -1
@@ -49,14 +41,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -152.0
-offset_top = -200.0
-offset_right = -28.0
-offset_bottom = -88.0
+offset_left = -400.0
+offset_top = -456.0
+offset_right = -124.0
+offset_bottom = -200.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 65541
 physics_material_override = SubResource("PhysicsMaterial_iqhb6")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
@@ -65,6 +56,15 @@ polygon = PackedVector2Array(-112, 64, 0, 128, 112, 64, 0, 8)
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(-112, 64, -112, -192, 0, -256, 112, -192, 112, 64)
 script = ExtResource("5_foovk")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -64)
+scale = Vector2(1.2, 0.939825)
+shape = SubResource("CapsuleShape2D_iqhb6")
 
 [connection signal="body_entered" from="Area2D" to="." method="_show_thought_on_player_collision_start"]
 [connection signal="body_exited" from="Area2D" to="." method="_hide_thought_on_player_collision_start"]

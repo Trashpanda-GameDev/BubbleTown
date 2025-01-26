@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bgor1txup4k06"]
 
-[ext_resource type="Shader" path="res://assets/group_outline.gdshader" id="1_2xmdr"]
+[ext_resource type="Shader" uid="uid://fl38fqowlpub" path="res://assets/group_outline.gdshader" id="1_2xmdr"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="2_crm0y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bo3sq"]

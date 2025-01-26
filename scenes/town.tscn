@@ -1,10 +1,11 @@
-[gd_scene load_steps=78 format=4 uid="uid://cpl2fu5au2wx2"]
+[gd_scene load_steps=79 format=4 uid="uid://cpl2fu5au2wx2"]
 
 [ext_resource type="PackedScene" uid="uid://b7kytukal1of8" path="res://scenes/daily_cycle.tscn" id="1_f2a5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="1_gt07c"]
 [ext_resource type="PackedScene" uid="uid://pqugpw34luat" path="res://scenes/actors/player.tscn" id="3_eruj1"]
 [ext_resource type="Texture2D" uid="uid://dxwonixfpqd3q" path="res://assets/terrain/road_01.png" id="3_f72b0"]
 [ext_resource type="PackedScene" uid="uid://crh318qkn16an" path="res://scenes/ui/thoughts/inventory/ThoughtsInventoryView.tscn" id="3_ms2es"]
+[ext_resource type="Script" path="res://scripts/gameplay/ui/TownUIController.gd" id="3_u4arb"]
 [ext_resource type="PackedScene" uid="uid://cjsf8cyf1rfh7" path="res://scenes/player_house.tscn" id="4_1jyyf"]
 [ext_resource type="Texture2D" uid="uid://pmrnhs604o3p" path="res://assets/terrain/grass_02.png" id="4_5qoex"]
 [ext_resource type="Texture2D" uid="uid://bpxe36wffautq" path="res://assets/terrain/grass_03.png" id="5_s6ipg"]
@@ -344,7 +345,11 @@ position = Vector2(8024, -1464)
 scale = Vector2(9, 9)
 texture = ExtResource("1_gt07c")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "thoughts_inventory_view")]
+script = ExtResource("3_u4arb")
+thoughtsRepository = ExtResource("10_5q1rr")
+player = NodePath("../Player")
+thoughts_inventory_view = NodePath("ThoughtsInventoryView")
 
 [node name="ThoughtsInventoryView" parent="UI" instance=ExtResource("3_ms2es")]
 visible = false
@@ -365,7 +370,6 @@ position = Vector2(755, 215)
 [node name="Player" parent="." instance=ExtResource("3_eruj1")]
 position = Vector2(-9688, 2320)
 mass = 0.104
-drag = 15
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -64)
@@ -507,3 +511,5 @@ position = Vector2(-4624, 2288)
 texture = ExtResource("38_vencw")
 
 [connection signal="timeout" from="Timer" to="UI/PostPictureScreen" method="_on_timer_timeout"]
+[connection signal="toggleEndDayPrompt" from="PlayerHouse" to="Player" method="_on_player_house_toggle_end_day_prompt"]
+[connection signal="show_post_photo_panel" from="Player" to="UI/PostPictureScreen" method="_on_player_show_post_photo_panel"]

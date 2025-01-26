@@ -1,4 +1,4 @@
-extends Node
+class_name PlayerMovement extends Node
 
 @export var rigidbody: RigidBody2D
 
@@ -12,15 +12,6 @@ extends Node
 
 var velocity: Vector2 = Vector2.ZERO
 var was_moving: bool = false
-
-@onready var end_day_prompt: Control = $endOfDayPrompt
-
-var _has_end_day_prompt: bool = false
-
-signal endDayCycle
-
-func _ready() -> void:
-	$endOfDayPrompt.hide()
 
 func get_movement_direction() -> Vector2:
 	var up: float = Input.get_action_strength("movement_up")
@@ -51,22 +42,3 @@ func _physics_process(delta: float) -> void:
 	
 	rigidbody.move_and_collide(velocity)
 	was_moving = is_moving
-	
-@export var has_end_day_prompt: bool = false:
-	get:
-		return _has_end_day_prompt
-	set(value):
-		toggle_end_day_prompt(value)
-		_has_end_day_prompt = value
-
-func toggle_end_day_prompt(show_prompt: bool) -> void:
-	if show_prompt:
-		$endOfDayPrompt.show()
-	else:
-		$endOfDayPrompt.hide()
-
-func _on_player_house_toggle_end_day_prompt(show_prompt: bool) -> void:
-	has_end_day_prompt = show_prompt
-
-func _on_yes_btn_pressed() -> void:
-	endDayCycle.emit()

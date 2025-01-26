@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw1vaerhyg0pm"]
+
+[ext_resource type="Theme" uid="uid://dfrfmjgrt46u6" path="res://themes/main.tres" id="1_gbssm"]
+[ext_resource type="Script" uid="uid://bpeojjgd74g3h" path="res://scripts/actors/prompt.gd" id="1_r3jo6"]
+[ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="3_r3jo6"]
+
+[node name="Prompt" type="Control" node_paths=PackedStringArray("end_day_prompt")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_r3jo6")
+end_day_prompt = NodePath(".")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.0
+offset_right = 108.0
+offset_bottom = 79.0
+grow_horizontal = 2
+theme_override_constants/separation = 20
+
+[node name="endDayMessage" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "End the day?"
+horizontal_alignment = 1
+
+[node name="BoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="yesBtn" type="Button" parent="VBoxContainer/BoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_gbssm")
+theme_override_font_sizes/font_size = 22
+text = "Time to post"
+
+[node name="InteractionSounds" parent="." instance=ExtResource("3_r3jo6")]
+root_path = NodePath("..")
+
+[connection signal="pressed" from="VBoxContainer/BoxContainer/yesBtn" to="." method="_on_yes_btn_pressed"]

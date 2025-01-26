@@ -1,25 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://pqugpw34luat"]
+[gd_scene load_steps=9 format=3 uid="uid://pqugpw34luat"]
 
+[ext_resource type="Script" path="res://scripts/actors/PlayerController.gd" id="1_oomub"]
+[ext_resource type="PackedScene" uid="uid://bw1vaerhyg0pm" path="res://scenes/actors/prompt.tscn" id="2_7wueq"]
 [ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_ktjr4"]
 [ext_resource type="Script" uid="uid://dl7i44qr3xg8n" path="res://scripts/actors/PlayerMovement.gd" id="2_l2i5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="3_7wueq"]
-[ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="3_ktjr4"]
+[ext_resource type="Resource" uid="uid://bjt30nixo7oef" path="res://resources/thoughts/ThoughtsRepository.tres" id="4_xx81n"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ktjr4"]
 friction = 0.0
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("rigidbody")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oomub"]
+radius = 136.0
+height = 416.0
+
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("movement")]
 y_sort_enabled = true
-collision_mask = 3
+collision_layer = 3
 physics_material_override = SubResource("PhysicsMaterial_ktjr4")
 gravity_scale = 0.0
 can_sleep = false
+script = ExtResource("1_oomub")
+thoughtsRepository = ExtResource("4_xx81n")
+movement = NodePath("Systems/MovementController")
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="MovementController" type="Node" parent="Systems" node_paths=PackedStringArray("rigidbody")]
 script = ExtResource("2_l2i5t")
-rigidbody = NodePath(".")
+rigidbody = NodePath("../..")
+
+[node name="PromptMessage" parent="." instance=ExtResource("2_7wueq")]
+offset_top = -358.0
+offset_bottom = -358.0
 
 [node name="VisionCone" parent="." instance=ExtResource("2_ktjr4")]
-blocking_layers = 2
-pass_through_layers = 4
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
 modulate = Color(1, 0.133333, 1, 1)
@@ -32,43 +47,21 @@ texture = ExtResource("3_7wueq")
 position = Vector2(0, -128)
 texture = ExtResource("3_7wueq")
 
-[node name="endOfDayPrompt" type="Control" parent="."]
-z_index = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -124.0
-offset_top = -228.0
-offset_right = -124.0
-offset_bottom = -228.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="endOfDayPrompt"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TextEdit" type="Label" parent="endOfDayPrompt/VBoxContainer"]
-layout_mode = 2
-text = "Would you like to end your day?"
-
-[node name="BoxContainer" type="HBoxContainer" parent="endOfDayPrompt/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="yesBtn" type="Button" parent="endOfDayPrompt/VBoxContainer/BoxContainer"]
-layout_mode = 2
-text = "Time to post the picture"
-
-[node name="InteractionSounds" parent="." instance=ExtResource("3_ktjr4")]
-root_path = NodePath("..")
-
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 top_level = true
 position = Vector2(0, 24)
 scale = Vector2(1.2, 0.939825)
 polygon = PackedVector2Array(0, -25.5367, 93.3333, 42.5611, 0, 110.659, -93.3333, 42.5611)
 
-[connection signal="pressed" from="endOfDayPrompt/VBoxContainer/BoxContainer/yesBtn" to="." method="_on_yes_btn_pressed"]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -64)
+shape = SubResource("CapsuleShape2D_oomub")
+
+[connection signal="toggle_prompt_message" from="." to="PromptMessage" method="_on_player_toggle_prompt_message"]
+[connection signal="end_day_cycle" from="PromptMessage" to="." method="_on_prompt_message_end_day_cycle"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_villager_nearby"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_villager_afar"]

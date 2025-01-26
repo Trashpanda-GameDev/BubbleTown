@@ -8,3 +8,5 @@ script = ExtResource("1_a2nto")
 cone_range = 512.0
 cone_color = Color(1, 1, 1, 0.686275)
 raycast_density = 200
+blocking_layers = 65536
+pass_through_layers = 131072

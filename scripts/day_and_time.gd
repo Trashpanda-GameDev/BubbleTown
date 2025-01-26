@@ -1,8 +1,7 @@
 extends Control
 
-@onready var daysLabel: Label = $DayControl/day
-@onready var hoursLabel: Label = $TimeControl/hours
-@onready var minutesLabel: Label = $TimeControl/minutes
+@onready var hoursLabel: Label = $ColorRect/BackgroundPanel/TimeControl/hours
+@onready var minutesLabel: Label = $ColorRect/BackgroundPanel/TimeControl/minutes
 
 var initialHour: int = 9
 var lastHour: int = 21

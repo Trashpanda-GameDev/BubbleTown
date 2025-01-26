@@ -4,3 +4,4 @@
 
 [node name="InteractionSounds" type="Node"]
 script = ExtResource("1_gq2st")
+root_path = NodePath(".")
