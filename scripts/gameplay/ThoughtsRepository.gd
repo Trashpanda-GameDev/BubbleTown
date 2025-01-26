@@ -12,6 +12,13 @@ func get_thought_resource_ids() -> Array[int]:
 func is_thought_resource_id_valid(id: int) -> bool:
 	return id >= 0 && id < len(thought_resources)
 
+func get_thought_by_resource(resource: ThoughtResource) -> Thought:
+	for id in range(0, len(thought_resources)):
+		if resource == thought_resources[id]:
+			return Thought.new(randi(), id, self)
+
+	return null
+
 func get_thought_by_resource_id(id: int) -> Thought:
 	if is_thought_resource_id_valid(id):
 		return Thought.new(randi(), id, self)

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://8uhr8dqb2ra6"]
+
+[ext_resource type="Script" uid="uid://ck3vbvklkhr1b" path="res://scripts/gameplay/POI.gd" id="1_mglmp"]
+[ext_resource type="Resource" uid="uid://bjt30nixo7oef" path="res://resources/thoughts/ThoughtsRepository.tres" id="2_1w4fu"]
+[ext_resource type="Shader" uid="uid://fl38fqowlpub" path="res://assets/group_outline.gdshader" id="4_1w4fu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1w4fu"]
+resource_local_to_scene = true
+shader = ExtResource("4_1w4fu")
+shader_parameter/is_enabled = true
+shader_parameter/line_color = Color(0.917647, 0.921569, 0, 1)
+shader_parameter/line_thickness = 4.0
+shader_parameter/viewport_scale = Vector2(1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mglmp"]
+radius = 131.21
+
+[node name="POI" type="StaticBody2D" node_paths=PackedStringArray("collision_shape")]
+material = SubResource("ShaderMaterial_1w4fu")
+collision_layer = 65537
+script = ExtResource("1_mglmp")
+thoughts_repository = ExtResource("2_1w4fu")
+collision_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mglmp")

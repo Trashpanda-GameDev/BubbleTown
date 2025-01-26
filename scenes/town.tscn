@@ -1,11 +1,11 @@
-[gd_scene load_steps=82 format=4 uid="uid://cpl2fu5au2wx2"]
+[gd_scene load_steps=87 format=4 uid="uid://cpl2fu5au2wx2"]
 
 [ext_resource type="PackedScene" uid="uid://b7kytukal1of8" path="res://scenes/daily_cycle.tscn" id="1_f2a5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="1_gt07c"]
 [ext_resource type="PackedScene" uid="uid://pqugpw34luat" path="res://scenes/actors/player.tscn" id="3_eruj1"]
 [ext_resource type="Texture2D" uid="uid://dxwonixfpqd3q" path="res://assets/terrain/road_01.png" id="3_f72b0"]
 [ext_resource type="PackedScene" uid="uid://crh318qkn16an" path="res://scenes/ui/thoughts/inventory/ThoughtsInventoryView.tscn" id="3_ms2es"]
-[ext_resource type="Script" path="res://scripts/gameplay/ui/TownUIController.gd" id="3_u4arb"]
+[ext_resource type="Script" uid="uid://c4f7cgdqv1ilr" path="res://scripts/gameplay/ui/TownUIController.gd" id="3_u4arb"]
 [ext_resource type="PackedScene" uid="uid://cjsf8cyf1rfh7" path="res://scenes/player_house.tscn" id="4_1jyyf"]
 [ext_resource type="Texture2D" uid="uid://pmrnhs604o3p" path="res://assets/terrain/grass_02.png" id="4_5qoex"]
 [ext_resource type="Texture2D" uid="uid://bpxe36wffautq" path="res://assets/terrain/grass_03.png" id="5_s6ipg"]
@@ -18,8 +18,11 @@
 [ext_resource type="Script" uid="uid://ckcru3sgwqopy" path="res://scripts/actors/VillagersThoughtSystem.gd" id="8_yn4qk"]
 [ext_resource type="Texture2D" uid="uid://duj2bmd8txvhq" path="res://assets/terrain/road_09.png" id="9_qflhy"]
 [ext_resource type="Resource" uid="uid://bjt30nixo7oef" path="res://resources/thoughts/ThoughtsRepository.tres" id="10_5q1rr"]
+[ext_resource type="PackedScene" uid="uid://8uhr8dqb2ra6" path="res://scenes/POI.tscn" id="10_b0eaf"]
+[ext_resource type="Shader" uid="uid://fl38fqowlpub" path="res://assets/group_outline.gdshader" id="11_b00ts"]
 [ext_resource type="Texture2D" uid="uid://cb6tvxd8n5kd5" path="res://assets/terrain/road_02.png" id="11_pklil"]
 [ext_resource type="PackedScene" uid="uid://dvn7budmw0prc" path="res://scenes/actors/villager.tscn" id="11_po04c"]
+[ext_resource type="Resource" uid="uid://7wikky533h76" path="res://resources/thoughts/ExampleThoughtResource2.tres" id="11_uutfq"]
 [ext_resource type="Texture2D" uid="uid://ceecygy42nnhx" path="res://assets/terrain/road_03.png" id="12_bnnb0"]
 [ext_resource type="Texture2D" uid="uid://ddvf4llwnp748" path="res://assets/terrain/road_04.png" id="13_8svx7"]
 [ext_resource type="Texture2D" uid="uid://pqba16e1w11b" path="res://assets/terrain/road_05.png" id="14_ffurh"]
@@ -278,6 +281,22 @@ pattern_19 = SubResource("TileMapPattern_by33p")
 pattern_20 = SubResource("TileMapPattern_vencw")
 pattern_21 = SubResource("TileMapPattern_3a6yh")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwx13"]
+resource_local_to_scene = true
+shader = ExtResource("11_b00ts")
+shader_parameter/is_enabled = true
+shader_parameter/line_color = Color(0.917647, 0.921569, 0, 1)
+shader_parameter/line_thickness = 4.0
+shader_parameter/viewport_scale = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n1kx1"]
+resource_local_to_scene = true
+shader = ExtResource("11_b00ts")
+shader_parameter/is_enabled = false
+shader_parameter/line_color = Color(0.917647, 0.921569, 0, 1)
+shader_parameter/line_thickness = 4.0
+shader_parameter/viewport_scale = Vector2(1, 1)
+
 [sub_resource type="Curve" id="Curve_e0pg0"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.0449438), 0.0, 0.0, 0, 0, Vector2(0.462312, 1), 0.0, 0.0, 0, 0, Vector2(0.723618, 0.707865), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 5
@@ -514,8 +533,16 @@ position = Vector2(-10808, 2408)
 position = Vector2(-3344, -1848)
 texture = ExtResource("37_by33p")
 
-[node name="Tree02" type="Sprite2D" parent="."]
-position = Vector2(-2392, -1248)
+[node name="POI" parent="." instance=ExtResource("10_b0eaf")]
+material = SubResource("ShaderMaterial_pwx13")
+position = Vector2(-2384, -944)
+thought_resource = ExtResource("11_uutfq")
+
+[node name="Highlight" type="CanvasGroup" parent="POI"]
+material = SubResource("ShaderMaterial_n1kx1")
+
+[node name="Tree02" type="Sprite2D" parent="POI/Highlight"]
+position = Vector2(-8, -304)
 texture = ExtResource("37_by33p")
 
 [node name="Tree05" type="Sprite2D" parent="."]
