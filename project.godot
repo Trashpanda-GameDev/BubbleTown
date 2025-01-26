@@ -23,6 +23,10 @@ buses/default_bus_layout="res://audio/default_bus_layout.tres"
 
 BackgroundMusic="*res://scenes/music/background_music.tscn"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")

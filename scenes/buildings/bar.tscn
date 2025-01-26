@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://1yjqq7td3e2i"]
+
+[ext_resource type="Texture2D" uid="uid://c5fqqil3fjeto" path="res://assets/buildings/building_bar.png" id="1_qew3q"]
+
+[node name="Bar" type="CanvasGroup"]
+y_sort_enabled = true
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-40, 352)
+scale = Vector2(0.777778, 0.777778)
+texture = ExtResource("1_qew3q")
+offset = Vector2(51.4286, -452.571)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)

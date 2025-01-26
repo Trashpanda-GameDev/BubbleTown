@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6gpkk2e87p6p"]
+
+[ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="1_f50f0"]
+
+[node name="box" type="Sprite2D"]
+texture = ExtResource("1_f50f0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(440, -240, 552, -304, 440, -368, 328, -304)
