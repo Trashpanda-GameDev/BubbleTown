@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnmeai2ydmcuk"]
+[gd_scene load_steps=3 format=3 uid="uid://bnmeai2ydmcuk"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://byawh2d1dsrk1" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="2_ekxnf"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -31,15 +32,13 @@ grow_vertical = 0
 layout_mode = 2
 text = "New game"
 
-[node name="highscoreBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Highscore"
-
 [node name="exitBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Exit
 "
 
+[node name="InteractionSounds" parent="." instance=ExtResource("2_ekxnf")]
+root_path = NodePath("..")
+
 [connection signal="pressed" from="VBoxContainer/startBtn" to="." method="_on_start_game_pressed"]
-[connection signal="pressed" from="VBoxContainer/highscoreBtn" to="." method="_on_highscore_pressed"]
 [connection signal="pressed" from="VBoxContainer/exitBtn" to="." method="_on_exit_game_pressed"]

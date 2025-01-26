@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_ktjr4"]
 [ext_resource type="Script" uid="uid://dl7i44qr3xg8n" path="res://scripts/actors/PlayerMovement.gd" id="2_l2i5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="3_7wueq"]
+[ext_resource type="Texture2D" uid="uid://bkvnripe85vmn" path="res://icon.svg" id="2_ru62r"]
+[ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="3_ktjr4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mvpqy"]
 radius = 93.3333
@@ -61,5 +63,8 @@ size_flags_horizontal = 4
 [node name="yesBtn" type="Button" parent="endOfDayPrompt/VBoxContainer/BoxContainer"]
 layout_mode = 2
 text = "Time to post the picture"
+
+[node name="InteractionSounds" parent="." instance=ExtResource("3_ktjr4")]
+root_path = NodePath("..")
 
 [connection signal="pressed" from="endOfDayPrompt/VBoxContainer/BoxContainer/yesBtn" to="." method="_on_yes_btn_pressed"]

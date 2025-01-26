@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3rsrqax7mvaa"]
+[gd_scene load_steps=3 format=3 uid="uid://b3rsrqax7mvaa"]
+
+[ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="1_uv8g7"]
 
 [sub_resource type="Theme" id="Theme_hujos"]
 
@@ -46,3 +48,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Rest until tomorrow"
+
+[node name="InteractionSounds" parent="." instance=ExtResource("1_uv8g7")]
+root_path = NodePath("..")
