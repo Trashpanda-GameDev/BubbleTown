@@ -8,8 +8,6 @@ class_name PlayerMovement extends Node
 
 var velocity: Vector2 = Vector2.ZERO
 
-signal endDayCycle
-
 func get_movement_direction() -> Vector2:
 	var up: float = Input.get_action_strength("movement_up")
 	var down: float = Input.get_action_strength("movement_down")

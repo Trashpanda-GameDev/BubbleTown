@@ -75,7 +75,6 @@ position = Vector2(755, 215)
 
 [node name="Player" parent="." instance=ExtResource("3_eruj1")]
 position = Vector2(178, 466)
-max_speed = 3
 
 [node name="Villagers" type="Node2D" parent="." node_paths=PackedStringArray("villagers")]
 y_sort_enabled = true
@@ -95,4 +94,4 @@ position = Vector2(576, 480)
 
 [connection signal="timeout" from="Timer" to="UI/PostPictureScreen" method="_on_timer_timeout"]
 [connection signal="toggleEndDayPrompt" from="PlayerHouse" to="Player" method="_on_player_house_toggle_end_day_prompt"]
-[connection signal="endDayCycle" from="Player" to="UI/PostPictureScreen" method="_on_player_end_day_cycle"]
+[connection signal="show_post_photo_panel" from="Player" to="UI/PostPictureScreen" method="_on_player_show_post_photo_panel"]

@@ -7,5 +7,5 @@ func handle_end_of_day() -> void:
 func _on_timer_timeout() -> void:
 	handle_end_of_day()
 
-func _on_player_end_day_cycle() -> void:
+func _on_player_show_post_photo_panel() -> void:
 	handle_end_of_day()

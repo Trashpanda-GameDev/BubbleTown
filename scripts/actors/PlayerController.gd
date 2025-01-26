@@ -2,34 +2,14 @@ class_name PlayerController extends Node
 
 @export var movement: PlayerMovement
 
-@export var day_end_prompt: Control
-
-var _has_end_day_prompt: bool = false
-
 var _current_villager: VillagerSystem
 var _is_near_villager: bool = false
 
-func _ready() -> void:
-	day_end_prompt.hide()
-
-@export var has_end_day_prompt: bool = false:
-	get:
-		return _has_end_day_prompt
-	set(value):
-		toggle_end_day_prompt(value)
-		_has_end_day_prompt = value
-
-func toggle_end_day_prompt(show_prompt: bool) -> void:
-	if show_prompt:
-		day_end_prompt.show()
-	else:
-		day_end_prompt.hide()
+signal show_post_photo_panel
+signal toggle_prompt_message
 
 func _on_player_house_toggle_end_day_prompt(show_prompt: bool) -> void:
-	has_end_day_prompt = show_prompt
-
-func _on_yes_btn_pressed() -> void:
-	day_end_prompt.emit()
+	toggle_prompt_message.emit(show_prompt)
 
 func _on_villager_nearby(body: Node2D) -> void:
 	var parent: Node = body.get_parent()
@@ -46,3 +26,7 @@ func _on_villager_afar(body: Node2D) -> void:
 
 	_current_villager = null
 	_is_near_villager = false
+
+func _on_prompt_message_end_day_cycle() -> void:
+	show_post_photo_panel.emit()
+	

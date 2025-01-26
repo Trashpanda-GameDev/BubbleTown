@@ -1,55 +1,49 @@
-[gd_scene load_steps=2 format=3 uid="uid://chdcyda3cu3k0"]
+[gd_scene load_steps=3 format=3 uid="uid://chdcyda3cu3k0"]
 
 [ext_resource type="Script" uid="uid://bjost6cxxwovw" path="res://scripts/day_and_time.gd" id="1_kjdcb"]
+[ext_resource type="Theme" uid="uid://dfrfmjgrt46u6" path="res://themes/main.tres" id="1_ol8g1"]
 
 [node name="DayAndTime" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 0
+theme = ExtResource("1_ol8g1")
 script = ExtResource("1_kjdcb")
 
-[node name="DayControl" type="Control" parent="."]
-anchors_preset = 0
-offset_top = 4.0
-offset_right = 29.0
-offset_bottom = 27.0
-
-[node name="day" type="Label" parent="DayControl"]
+[node name="BackgroundPanel" type="VBoxContainer" parent="."]
 layout_mode = 1
-offset_right = 28.0
-offset_bottom = 23.0
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_right = 172.0
+offset_bottom = 48.0
+theme = ExtResource("1_ol8g1")
 
-[node name="TimeControl" type="Control" parent="."]
-anchors_preset = 0
-offset_top = 29.0
-offset_right = 44.0
-offset_bottom = 50.0
+[node name="TimeControl" type="Control" parent="BackgroundPanel"]
+layout_mode = 2
 
-[node name="hours" type="Label" parent="TimeControl"]
+[node name="hours" type="Label" parent="BackgroundPanel/TimeControl"]
 layout_mode = 0
 offset_right = 19.0
 offset_bottom = 23.0
+theme_override_font_sizes/font_size = 50
 text = "09"
 horizontal_alignment = 2
+vertical_alignment = 1
 
-[node name="column" type="Label" parent="TimeControl"]
+[node name="column" type="Label" parent="BackgroundPanel/TimeControl"]
 layout_mode = 0
-offset_left = 19.0
-offset_right = 24.0
-offset_bottom = 23.0
+offset_left = 67.0
+offset_top = -2.0
+offset_right = 80.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 50
 text = ":"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="minutes" type="Label" parent="TimeControl"]
+[node name="minutes" type="Label" parent="BackgroundPanel/TimeControl"]
 layout_mode = 0
-offset_left = 24.0
-offset_right = 43.0
-offset_bottom = 23.0
+offset_left = 82.0
+offset_right = 156.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 50
 text = "00"
-
-[node name="BackgroundPanel" type="NinePatchRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-region_rect = Rect2(0, 0, 257, 256)
+vertical_alignment = 1

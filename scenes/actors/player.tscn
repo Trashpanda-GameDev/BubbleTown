@@ -13,7 +13,7 @@ friction = 0.0
 radius = 136.0
 height = 416.0
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("movement", "day_end_prompt")]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("movement")]
 y_sort_enabled = true
 collision_layer = 3
 physics_material_override = SubResource("PhysicsMaterial_ktjr4")
@@ -21,7 +21,6 @@ gravity_scale = 0.0
 can_sleep = false
 script = ExtResource("1_oomub")
 movement = NodePath("Systems/MovementController")
-day_end_prompt = NodePath("PromptMessage")
 
 [node name="Systems" type="Node" parent="."]
 
@@ -30,6 +29,8 @@ script = ExtResource("2_l2i5t")
 rigidbody = NodePath("../..")
 
 [node name="PromptMessage" parent="." instance=ExtResource("2_7wueq")]
+offset_top = -358.0
+offset_bottom = -358.0
 
 [node name="VisionCone" parent="." instance=ExtResource("2_ktjr4")]
 
@@ -58,5 +59,7 @@ collision_mask = 4
 position = Vector2(0, -64)
 shape = SubResource("CapsuleShape2D_oomub")
 
+[connection signal="toggle_prompt_message" from="." to="PromptMessage" method="_on_player_toggle_prompt_message"]
+[connection signal="end_day_cycle" from="PromptMessage" to="." method="_on_prompt_message_end_day_cycle"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_villager_nearby"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_villager_afar"]
