@@ -34,7 +34,6 @@ position = Vector2(0, -128)
 texture = ExtResource("3_iqhb6")
 
 [node name="VillagerThoughtView" parent="." instance=ExtResource("4_iqhb6")]
-visible = false
 z_index = 1
 custom_minimum_size = Vector2(64, 64)
 anchors_preset = -1
@@ -42,10 +41,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -152.0
-offset_top = -200.0
-offset_right = -28.0
-offset_bottom = -88.0
+offset_left = -400.0
+offset_top = -456.0
+offset_right = -124.0
+offset_bottom = -200.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 65541

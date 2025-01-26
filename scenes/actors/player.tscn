@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://pqugpw34luat"]
+[gd_scene load_steps=9 format=3 uid="uid://pqugpw34luat"]
 
 [ext_resource type="Script" uid="uid://bfcw1i3fs04xa" path="res://scripts/actors/PlayerController.gd" id="1_oomub"]
 [ext_resource type="PackedScene" uid="uid://bw1vaerhyg0pm" path="res://scenes/actors/prompt.tscn" id="2_7wueq"]
 [ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_ktjr4"]
 [ext_resource type="Script" uid="uid://dl7i44qr3xg8n" path="res://scripts/actors/PlayerMovement.gd" id="2_l2i5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="3_7wueq"]
+[ext_resource type="Resource" uid="uid://bjt30nixo7oef" path="res://resources/thoughts/ThoughtsRepository.tres" id="4_xx81n"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ktjr4"]
 friction = 0.0
@@ -20,6 +21,7 @@ physics_material_override = SubResource("PhysicsMaterial_ktjr4")
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource("1_oomub")
+thoughtsRepository = ExtResource("4_xx81n")
 movement = NodePath("Systems/MovementController")
 
 [node name="Systems" type="Node" parent="."]

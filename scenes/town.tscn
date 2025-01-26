@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://cpl2fu5au2wx2"]
+[gd_scene load_steps=15 format=4 uid="uid://cpl2fu5au2wx2"]
 
 [ext_resource type="PackedScene" uid="uid://b7kytukal1of8" path="res://scenes/daily_cycle.tscn" id="1_f2a5t"]
 [ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="1_gt07c"]
 [ext_resource type="PackedScene" uid="uid://pqugpw34luat" path="res://scenes/actors/player.tscn" id="3_eruj1"]
 [ext_resource type="PackedScene" uid="uid://crh318qkn16an" path="res://scenes/ui/thoughts/inventory/ThoughtsInventoryView.tscn" id="3_ms2es"]
+[ext_resource type="Script" uid="uid://c4f7cgdqv1ilr" path="res://scripts/gameplay/ui/TownUIController.gd" id="3_u4arb"]
 [ext_resource type="PackedScene" uid="uid://cjsf8cyf1rfh7" path="res://scenes/player_house.tscn" id="4_1jyyf"]
 [ext_resource type="PackedScene" uid="uid://b3rsrqax7mvaa" path="res://scenes/post_picture_screen.tscn" id="6_t6cq8"]
 [ext_resource type="Script" uid="uid://bb633akt1q35o" path="res://scripts/post_picture_screen.gd" id="7_cq4yp"]
@@ -55,7 +56,11 @@ position = Vector2(-1112, -192)
 scale = Vector2(2, 2)
 texture = ExtResource("1_gt07c")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "thoughts_inventory_view")]
+script = ExtResource("3_u4arb")
+thoughtsRepository = ExtResource("10_5q1rr")
+player = NodePath("../Player")
+thoughts_inventory_view = NodePath("ThoughtsInventoryView")
 
 [node name="ThoughtsInventoryView" parent="UI" instance=ExtResource("3_ms2es")]
 visible = false
