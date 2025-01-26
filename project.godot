@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="BubbleTown"
+config/name="Bubble Town"
 run/main_scene="uid://bnmeai2ydmcuk"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
