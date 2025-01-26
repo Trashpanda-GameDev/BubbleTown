@@ -15,6 +15,10 @@ run/main_scene="uid://bnmeai2ydmcuk"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://audio/default_bus_layout.tres"
+
 [autoload]
 
 BackgroundMusic="*res://scenes/music/background_music.tscn"
@@ -22,6 +26,10 @@ BackgroundMusic="*res://scenes/music/background_music.tscn"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+
+[gui]
+
+theme/custom_font="uid://bk4kxbootlgr2"
 
 [input]
 

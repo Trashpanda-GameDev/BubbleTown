@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnmeai2ydmcuk"]
+[gd_scene load_steps=4 format=3 uid="uid://bnmeai2ydmcuk"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://byawh2d1dsrk1" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Theme" uid="uid://dfrfmjgrt46u6" path="res://themes/main.tres" id="2_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="2_ekxnf"]
 
 [node name="MainMenu" type="Control"]
@@ -15,6 +16,20 @@ size_flags_vertical = 6
 script = ExtResource("1_l6cm7")
 metadata/_edit_use_anchors_ = true
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -394.5
+offset_top = 178.0
+offset_right = 394.5
+offset_bottom = 285.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 150
+text = "Bubble Town"
+horizontal_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -22,18 +37,23 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -188.0
-offset_top = -192.0
-offset_right = 188.0
+offset_left = -224.5
+offset_top = -222.0
+offset_right = 224.5
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("2_bqqt6")
+theme_override_constants/separation = 30
 
 [node name="startBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 55
 text = "New game"
 
 [node name="exitBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 55
 text = "Exit
 "
 
