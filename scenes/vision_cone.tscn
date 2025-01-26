@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://iroojfk3nc1y"]
+[gd_scene load_steps=3 format=3 uid="uid://iroojfk3nc1y"]
 
 [ext_resource type="Script" uid="uid://b3ue213ndk05d" path="res://scripts/vision_cone.gd" id="1_a2nto"]
+[ext_resource type="Texture2D" uid="uid://d4bfmtuo8hcgo" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="2_wwfdo"]
 
 [node name="VisionCone" type="Node2D"]
-visible = false
 script = ExtResource("1_a2nto")
 cone_range = 512.0
 cone_color = Color(1, 1, 1, 0.686275)
 raycast_density = 200
 blocking_layers = 65536
 pass_through_layers = 131072
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("2_wwfdo")
+texture_scale = 0.5

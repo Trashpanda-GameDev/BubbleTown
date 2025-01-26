@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://chdcyda3cu3k0"]
 
-[ext_resource type="Script" uid="uid://bjost6cxxwovw" path="res://scripts/day_and_time.gd" id="1_kjdcb"]
+[ext_resource type="Script" path="res://scripts/day_and_time.gd" id="1_kjdcb"]
 [ext_resource type="Theme" uid="uid://dfrfmjgrt46u6" path="res://themes/main.tres" id="1_ol8g1"]
 
 [node name="DayAndTime" type="Control"]

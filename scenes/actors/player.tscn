@@ -1,18 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://pqugpw34luat"]
+[gd_scene load_steps=10 format=3 uid="uid://pqugpw34luat"]
 
 [ext_resource type="Script" path="res://scripts/actors/PlayerController.gd" id="1_oomub"]
 [ext_resource type="PackedScene" uid="uid://bw1vaerhyg0pm" path="res://scenes/actors/prompt.tscn" id="2_7wueq"]
 [ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_ktjr4"]
 [ext_resource type="Script" uid="uid://dl7i44qr3xg8n" path="res://scripts/actors/PlayerMovement.gd" id="2_l2i5t"]
-[ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="3_7wueq"]
+[ext_resource type="Texture2D" uid="uid://btufa5bulwxpt" path="res://assets/characters/player_idle_left_down.png" id="4_7860b"]
 [ext_resource type="Resource" uid="uid://bjt30nixo7oef" path="res://resources/thoughts/ThoughtsRepository.tres" id="4_xx81n"]
+[ext_resource type="Texture2D" uid="uid://bcgtjyed0o06o" path="res://assets/characters/player_idle_right_down.png" id="6_8y416"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ktjr4"]
 friction = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oomub"]
 radius = 136.0
-height = 416.0
+height = 496.0
 
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("movement")]
 y_sort_enabled = true
@@ -26,26 +27,30 @@ movement = NodePath("Systems/MovementController")
 
 [node name="Systems" type="Node" parent="."]
 
-[node name="MovementController" type="Node" parent="Systems" node_paths=PackedStringArray("rigidbody")]
+[node name="MovementController" type="Node" parent="Systems" node_paths=PackedStringArray("rigidbody", "sprite")]
 script = ExtResource("2_l2i5t")
 rigidbody = NodePath("../..")
+sprite = NodePath("../../CanvasGroup/Sprite2D")
+walk_left_texture = ExtResource("4_7860b")
+walk_right_texture = ExtResource("6_8y416")
+max_speed = 10
 
 [node name="PromptMessage" parent="." instance=ExtResource("2_7wueq")]
-offset_top = -358.0
-offset_bottom = -358.0
+offset_left = 8.0
+offset_top = -472.0
+offset_right = 8.0
+offset_bottom = -472.0
 
 [node name="VisionCone" parent="." instance=ExtResource("2_ktjr4")]
+position = Vector2(16, -128)
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
-modulate = Color(1, 0.133333, 1, 1)
 y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasGroup"]
-texture = ExtResource("3_7wueq")
-
-[node name="Sprite2D2" type="Sprite2D" parent="CanvasGroup/Sprite2D"]
-position = Vector2(0, -128)
-texture = ExtResource("3_7wueq")
+position = Vector2(0, -32)
+texture = ExtResource("6_8y416")
+offset = Vector2(16, -112)
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 top_level = true
@@ -58,7 +63,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -64)
+position = Vector2(0, -104)
 shape = SubResource("CapsuleShape2D_oomub")
 
 [connection signal="toggle_prompt_message" from="." to="PromptMessage" method="_on_player_toggle_prompt_message"]
