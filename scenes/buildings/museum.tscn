@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b626jnie0a0md"]
+
+[ext_resource type="Texture2D" uid="uid://ovkbpcbu8pny" path="res://assets/buildings/building_museum.png" id="1_cdb2s"]
+
+[node name="Museum" type="CanvasGroup"]
+y_sort_enabled = true
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-284, 320)
+scale = Vector2(0.777778, 0.777778)
+texture = ExtResource("1_cdb2s")
+offset = Vector2(364, -480)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-560, 356)
+polygon = PackedVector2Array(400, 284, 788, 60, 784, 28, 288, -228, -96, 0)
