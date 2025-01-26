@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://hnxd401h42ti" path="res://scripts/actors/VillagersSystem.gd" id="8_v3ani"]
 [ext_resource type="Script" uid="uid://ckcru3sgwqopy" path="res://scripts/actors/VillagersThoughtSystem.gd" id="8_yn4qk"]
 [ext_resource type="Resource" uid="uid://bjt30nixo7oef" path="res://resources/thoughts/ThoughtsRepository.tres" id="10_5q1rr"]
-[ext_resource type="PackedScene" uid="uid://budbwjk0akuds" path="res://scenes/actors/villager.tscn" id="11_po04c"]
+[ext_resource type="PackedScene" uid="uid://dvn7budmw0prc" path="res://scenes/actors/villager.tscn" id="11_po04c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gt07c"]
 texture = ExtResource("1_gt07c")
