@@ -4,6 +4,8 @@ class_name PlayerController extends Node
 
 @export var movement: PlayerMovement
 
+@export var vision_cone: VisionCone
+
 var inventory: ThoughtsInventory
 
 var _current_villager: VillagerSystem
@@ -17,11 +19,15 @@ func _init() -> void:
 
 func _process(_delta: float) -> void:
 	self._handle_villager_interaction()
+	self._handle_camera_capture()
 
 func _on_player_house_toggle_end_day_prompt(show_prompt: bool) -> void:
 	toggle_prompt_message.emit(show_prompt)
 
 func _handle_villager_interaction() -> void:
+	# if not in camera mode
+	if !vision_cone.visible:
+		return
 	if !_is_near_villager || !Input.is_action_just_pressed("interact"):
 		return
 	if !_current_villager.thought.has_thought():
@@ -46,6 +52,14 @@ func _on_villager_afar(body: Node2D) -> void:
 
 	_current_villager = null
 	_is_near_villager = false
+
+func _handle_camera_capture() -> void:
+	if !vision_cone.visible:
+		return
+
+	var thoughts := vision_cone.get_current_thoughts_in_view()
+	# TODO: finish capturing photo
+	print(thoughts)
 
 func _on_prompt_message_end_day_cycle() -> void:
 	show_post_photo_panel.emit()

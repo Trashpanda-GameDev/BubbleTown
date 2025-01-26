@@ -61,6 +61,14 @@ func get_current_objects_in_view() -> Array:
 	
 	return currentObjects
 
+func get_current_thoughts_in_view() -> Array[Thought]:
+	var thoughts: Array[Thought] = []
+	for obj: Object in hit_objects:
+		if obj is POI:
+			thoughts.append(obj.thought)
+
+	return thoughts
+
 func toggle_camera_mode() -> void:
 	self.visible = !self.visible
 

@@ -15,7 +15,7 @@ friction = 0.0
 radius = 136.0
 height = 496.0
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("movement")]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("movement", "vision_cone")]
 y_sort_enabled = true
 collision_layer = 3
 physics_material_override = SubResource("PhysicsMaterial_ktjr4")
@@ -24,6 +24,7 @@ can_sleep = false
 script = ExtResource("1_oomub")
 thoughtsRepository = ExtResource("4_xx81n")
 movement = NodePath("Systems/MovementController")
+vision_cone = NodePath("VisionCone")
 
 [node name="Systems" type="Node" parent="."]
 
