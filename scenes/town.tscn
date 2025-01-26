@@ -326,33 +326,82 @@ collision_layer = 3
 position = Vector2(-440, 368)
 polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
 
-[node name="TilePlaceholder9" type="Sprite2D" parent="."]
-position = Vector2(-1632, 224)
-texture = ExtResource("21_e1wsi")
-
-[node name="TilePlaceholder11" type="Sprite2D" parent="."]
-position = Vector2(-16, 1200)
-texture = ExtResource("22_e0pg0")
-
-[node name="TilePlaceholder5" type="Sprite2D" parent="."]
+[node name="house_2" type="Sprite2D" parent="."]
 position = Vector2(-5392, 3488)
 texture = ExtResource("23_idu3t")
 
-[node name="TilePlaceholder6" type="Sprite2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="house_2"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_2/StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+
+[node name="house_3" type="Sprite2D" parent="."]
+position = Vector2(-1632, 224)
+texture = ExtResource("21_e1wsi")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="house_3"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_3/StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+
+[node name="house_4" type="Sprite2D" parent="."]
+position = Vector2(-16, 1200)
+texture = ExtResource("22_e0pg0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="house_4"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_4/StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+
+[node name="house_5" type="Sprite2D" parent="."]
 position = Vector2(-6328, -1304)
 texture = ExtResource("24_pwx13")
 
-[node name="TilePlaceholder7" type="Sprite2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="house_5"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_5/StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+
+[node name="house_6" type="Sprite2D" parent="."]
 position = Vector2(-9152, -320)
 texture = ExtResource("25_n1kx1")
 
-[node name="TilePlaceholder8" type="Sprite2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="house_6"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_6/StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+
+[node name="house_7" type="Sprite2D" parent="."]
 position = Vector2(1768, 2864)
 texture = ExtResource("26_vpr3w")
 
-[node name="TilePlaceholder10" type="Sprite2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="house_7"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_7/StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+
+[node name="house_8" type="Sprite2D" parent="."]
 position = Vector2(2272, 864)
 texture = ExtResource("20_ffurh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="house_8"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_8/StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
 
 [node name="TilePlaceholder2" type="Sprite2D" parent="."]
 position = Vector2(8024, -1464)
