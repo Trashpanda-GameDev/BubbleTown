@@ -16,7 +16,6 @@ gravity_scale = 0.0
 can_sleep = false
 script = ExtResource("2_l2i5t")
 rigidbody = NodePath(".")
-max_speed = 4
 
 [node name="VisionCone" parent="." instance=ExtResource("2_ktjr4")]
 blocking_layers = 2
