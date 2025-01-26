@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://pqugpw34luat"]
+[gd_scene load_steps=6 format=3 uid="uid://pqugpw34luat"]
 
 [ext_resource type="PackedScene" uid="uid://iroojfk3nc1y" path="res://scenes/vision_cone.tscn" id="2_ktjr4"]
 [ext_resource type="Script" uid="uid://dl7i44qr3xg8n" path="res://scripts/actors/PlayerMovement.gd" id="2_l2i5t"]
@@ -6,14 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://bkvnripe85vmn" path="res://icon.svg" id="2_ru62r"]
 [ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="3_ktjr4"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ktjr4"]
+friction = 0.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mvpqy"]
 radius = 93.3333
 height = 357.513
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("character")]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("rigidbody")]
 y_sort_enabled = true
+physics_material_override = SubResource("PhysicsMaterial_ktjr4")
+gravity_scale = 0.0
+can_sleep = false
 script = ExtResource("2_l2i5t")
-character = NodePath(".")
+rigidbody = NodePath(".")
 max_speed = 4
 
 [node name="VisionCone" parent="." instance=ExtResource("2_ktjr4")]

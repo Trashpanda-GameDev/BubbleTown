@@ -1,6 +1,6 @@
 extends Node
 
-@export var character: CharacterBody2D
+@export var rigidbody: RigidBody2D
 
 @export var max_speed: int = 3
 @export var acceleration: int = 40
@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 	if velocity.length_squared() > max_speed * max_speed:
 		velocity = velocity.normalized() * max_speed
 
-	character.move_and_collide(velocity)
+	rigidbody.move_and_collide(velocity)
 	
 @export var has_end_day_prompt: bool = false:
 	get:
