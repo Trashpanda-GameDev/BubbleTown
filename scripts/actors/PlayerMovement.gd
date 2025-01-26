@@ -29,7 +29,7 @@ func get_movement_direction() -> Vector2:
 
 func _physics_process(delta: float) -> void:
 	var direction: Vector2 = get_movement_direction()
-	var is_moving = direction.length() > 0
+	var is_moving := direction.length() > 0
 	
 	# Handle sprite flipping based on movement direction
 	if direction.x != 0:
@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_moving:
 		# Apply dash multiplier when starting movement
-		var speed_multiplier = dash_multiplier if !was_moving else 1.0
+		var speed_multiplier := dash_multiplier if !was_moving else 1.0
 		# Apply sprint multiplier if sprinting
 		speed_multiplier *= sprint_multiplier if is_sprinting else 1.0
 		
@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	# Sharp deceleration when stopping
 	velocity -= velocity.normalized() * drag * delta
 	
-	var current_max_speed = max_speed * (sprint_multiplier if is_sprinting else 1.0)
+	var current_max_speed := max_speed * (sprint_multiplier if is_sprinting else 1.0)
 	
 	if velocity.length_squared() > current_max_speed * current_max_speed:
 		velocity = velocity.normalized() * current_max_speed
