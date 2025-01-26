@@ -1,8 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnmeai2ydmcuk"]
+[gd_scene load_steps=7 format=3 uid="uid://bnmeai2ydmcuk"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="Theme" uid="uid://dfrfmjgrt46u6" path="res://themes/main.tres" id="2_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://buvk1qo7e8322" path="res://assets/bubble.png" id="4_wu84c"]
+
+[sub_resource type="Curve" id="Curve_8ln24"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.0449438), 0.0, 0.0, 0, 0, Vector2(0.462312, 1), 0.0, 0.0, 0, 0, Vector2(0.723618, 0.707865), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_rtw2f"]
+offsets = PackedFloat32Array(0, 0.190751, 0.780347, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -59,6 +68,25 @@ text = "Exit
 
 [node name="InteractionSounds" parent="." instance=ExtResource("2_ekxnf")]
 root_path = NodePath("..")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(576, 320)
+amount = 25
+texture = ExtResource("4_wu84c")
+lifetime = 10.0
+preprocess = 10.0
+lifetime_randomness = 0.39
+emission_shape = 3
+emission_rect_extents = Vector2(650, 500)
+direction = Vector2(1, 2)
+spread = 60.0
+gravity = Vector2(0, -50)
+angle_min = -15.0
+angle_max = 15.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_8ln24")
+color_ramp = SubResource("Gradient_rtw2f")
 
 [connection signal="pressed" from="VBoxContainer/startBtn" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/exitBtn" to="." method="_on_exit_game_pressed"]

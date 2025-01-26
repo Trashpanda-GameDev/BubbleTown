@@ -281,6 +281,14 @@ pattern_19 = SubResource("TileMapPattern_by33p")
 pattern_20 = SubResource("TileMapPattern_vencw")
 pattern_21 = SubResource("TileMapPattern_3a6yh")
 
+[sub_resource type="Curve" id="Curve_e0pg0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.0449438), 0.0, 0.0, 0, 0, Vector2(0.462312, 1), 0.0, 0.0, 0, 0, Vector2(0.723618, 0.707865), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_idu3t"]
+offsets = PackedFloat32Array(0, 0.190751, 0.780347, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pwx13"]
 resource_local_to_scene = true
 shader = ExtResource("11_b00ts")
@@ -296,14 +304,6 @@ shader_parameter/is_enabled = false
 shader_parameter/line_color = Color(0.917647, 0.921569, 0, 1)
 shader_parameter/line_thickness = 4.0
 shader_parameter/viewport_scale = Vector2(1, 1)
-
-[sub_resource type="Curve" id="Curve_e0pg0"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.0449438), 0.0, 0.0, 0, 0, Vector2(0.462312, 1), 0.0, 0.0, 0, 0, Vector2(0.723618, 0.707865), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 5
-
-[sub_resource type="Gradient" id="Gradient_idu3t"]
-offsets = PackedFloat32Array(0, 0.190751, 0.780347, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Town" type="Node2D"]
 y_sort_enabled = true
