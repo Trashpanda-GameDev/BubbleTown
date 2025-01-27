@@ -43,6 +43,7 @@ offset_right = 8.0
 offset_bottom = -472.0
 
 [node name="VisionCone" parent="." instance=ExtResource("2_ktjr4")]
+visible = false
 position = Vector2(16, -128)
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]

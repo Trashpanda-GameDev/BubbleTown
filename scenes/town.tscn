@@ -5,13 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://pqugpw34luat" path="res://scenes/actors/player.tscn" id="3_eruj1"]
 [ext_resource type="Texture2D" uid="uid://dxwonixfpqd3q" path="res://assets/terrain/road_01.png" id="3_f72b0"]
 [ext_resource type="PackedScene" uid="uid://crh318qkn16an" path="res://scenes/ui/thoughts/inventory/ThoughtsInventoryView.tscn" id="3_ms2es"]
-[ext_resource type="Script" uid="uid://c4f7cgdqv1ilr" path="res://scripts/gameplay/ui/TownUIController.gd" id="3_u4arb"]
+[ext_resource type="Script" path="res://scripts/gameplay/ui/TownUIController.gd" id="3_u4arb"]
 [ext_resource type="PackedScene" uid="uid://cjsf8cyf1rfh7" path="res://scenes/player_house.tscn" id="4_1jyyf"]
 [ext_resource type="Texture2D" uid="uid://pmrnhs604o3p" path="res://assets/terrain/grass_02.png" id="4_5qoex"]
 [ext_resource type="Texture2D" uid="uid://bpxe36wffautq" path="res://assets/terrain/grass_03.png" id="5_s6ipg"]
 [ext_resource type="Texture2D" uid="uid://dl3i0c1wgyrmy" path="res://assets/terrain/grass_04.png" id="6_8qite"]
 [ext_resource type="PackedScene" uid="uid://b3rsrqax7mvaa" path="res://scenes/post_picture_screen.tscn" id="6_t6cq8"]
-[ext_resource type="Script" uid="uid://bb633akt1q35o" path="res://scripts/post_picture_screen.gd" id="7_cq4yp"]
 [ext_resource type="Texture2D" uid="uid://vvqimgbiq5nc" path="res://assets/terrain/grass_05.png" id="7_oej6q"]
 [ext_resource type="Script" uid="uid://hnxd401h42ti" path="res://scripts/actors/VillagersSystem.gd" id="8_v3ani"]
 [ext_resource type="Texture2D" uid="uid://bsmt1338rsebt" path="res://assets/terrain/grass_06.png" id="8_ydesw"]
@@ -39,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://cadmvm72206tc" path="res://assets/buildings/building_house_07.png" id="25_n1kx1"]
 [ext_resource type="Texture2D" uid="uid://bjd72ultydk8f" path="res://assets/buildings/building_house_03.png" id="26_vpr3w"]
 [ext_resource type="PackedScene" uid="uid://1yjqq7td3e2i" path="res://scenes/buildings/bar.tscn" id="28_5qoex"]
+[ext_resource type="PackedScene" uid="uid://chdcyda3cu3k0" path="res://scenes/day_and_time.tscn" id="29_idu3t"]
 [ext_resource type="PackedScene" uid="uid://c6gpkk2e87p6p" path="res://scenes/obj_box.tscn" id="29_s6ipg"]
 [ext_resource type="Texture2D" uid="uid://buvk1qo7e8322" path="res://assets/bubble.png" id="34_e0pg0"]
 [ext_resource type="Texture2D" uid="uid://cqoebrj2ddeyv" path="res://assets/tree_01.png" id="37_by33p"]
@@ -308,6 +308,28 @@ shader_parameter/viewport_scale = Vector2(1, 1)
 [node name="Town" type="Node2D"]
 y_sort_enabled = true
 
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "thoughts_inventory_view")]
+script = ExtResource("3_u4arb")
+thoughtsRepository = ExtResource("10_5q1rr")
+player = NodePath("../Player")
+thoughts_inventory_view = NodePath("ThoughtsInventoryView")
+
+[node name="DayAndTime" parent="UI" instance=ExtResource("29_idu3t")]
+
+[node name="ThoughtsInventoryView" parent="UI" instance=ExtResource("3_ms2es")]
+visible = false
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PostPictureScreen" parent="UI" instance=ExtResource("6_t6cq8")]
+visible = false
+size_flags_horizontal = 4
+
+[node name="DailyCycle" parent="." instance=ExtResource("1_f2a5t")]
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 360.0
 autostart = true
@@ -328,132 +350,157 @@ scale = Vector2(1.20703, 1.20703)
 position = Vector2(-2.48547, 1.65697)
 texture = ExtResource("1_gt07c")
 
+[node name="Houses" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="house_01" type="Sprite2D" parent="Houses"]
+position = Vector2(-9152, -320)
+texture = ExtResource("25_n1kx1")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Houses/house_01"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Houses/house_01/StaticBody2D2"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(446, 395, 1171, -24, 444, -424, -263, -16)
+
+[node name="house_02" type="Sprite2D" parent="Houses"]
+position = Vector2(-6936, 2593)
+texture = ExtResource("20_ffurh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Houses/house_02"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Houses/house_02/StaticBody2D"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(446, 395, 1171, -24, 444, -424, -263, -16)
+
+[node name="house_03" type="Sprite2D" parent="Houses"]
+position = Vector2(-5392, 3488)
+texture = ExtResource("23_idu3t")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Houses/house_03"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Houses/house_03/StaticBody2D2"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(446, 395, 1171, -24, 444, -424, -263, -16)
+
+[node name="house_04" type="Sprite2D" parent="Houses"]
+position = Vector2(-6328, -1304)
+texture = ExtResource("24_pwx13")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Houses/house_04"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Houses/house_04/StaticBody2D3"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(446, 395, 1171, -24, 444, -424, -263, -16)
+
+[node name="house_05" type="Sprite2D" parent="Houses"]
+position = Vector2(-1632, 224)
+texture = ExtResource("21_e1wsi")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Houses/house_05"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Houses/house_05/StaticBody2D4"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(446, 395, 1171, -24, 444, -424, -263, -16)
+
+[node name="house_06" type="Sprite2D" parent="Houses"]
+position = Vector2(-16, 1200)
+texture = ExtResource("22_e0pg0")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Houses/house_06"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Houses/house_06/StaticBody2D5"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(446, 395, 1171, -24, 444, -424, -263, -16)
+
+[node name="house_08" type="Sprite2D" parent="Houses"]
+position = Vector2(1768, 2864)
+texture = ExtResource("26_vpr3w")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Houses/house_08"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Houses/house_08/StaticBody2D6"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(446, 395, 1171, -24, 444, -424, -263, -16)
+
+[node name="house_07" type="Sprite2D" parent="Houses"]
+position = Vector2(2272, 864)
+texture = ExtResource("20_ffurh")
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="Houses/house_07"]
+collision_layer = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Houses/house_07/StaticBody2D7"]
+position = Vector2(-440, 368)
+polygon = PackedVector2Array(446, 395, 1171, -24, 444, -424, -263, -16)
+
 [node name="Museum" parent="." instance=ExtResource("18_f72b0")]
 position = Vector2(-1392, -2592)
 
 [node name="bar" parent="." instance=ExtResource("28_5qoex")]
 position = Vector2(-8904, 1392)
 
-[node name="house_1" type="Sprite2D" parent="."]
-position = Vector2(-6936, 2592)
-texture = ExtResource("20_ffurh")
+[node name="box2" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(-616, 316)
+scale = Vector2(0.5, 0.5)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="house_1"]
-collision_layer = 3
+[node name="box10" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(444, 396)
+scale = Vector2(0.5, 0.5)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_1/StaticBody2D"]
-position = Vector2(-440, 368)
-polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+[node name="box11" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(532, 364)
+scale = Vector2(0.5, 0.5)
 
-[node name="house_2" type="Sprite2D" parent="."]
-position = Vector2(-5392, 3488)
-texture = ExtResource("23_idu3t")
+[node name="box12" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(568, 292)
+scale = Vector2(0.5, 0.5)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="house_2"]
-collision_layer = 3
+[node name="box9" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(-508, 316)
+scale = Vector2(0.5, 0.5)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_2/StaticBody2D"]
-position = Vector2(-440, 368)
-polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+[node name="box3" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(-672, 348)
+scale = Vector2(0.5, 0.5)
 
-[node name="house_3" type="Sprite2D" parent="."]
-position = Vector2(-1632, 224)
-texture = ExtResource("21_e1wsi")
+[node name="box4" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(-728, 380)
+scale = Vector2(0.5, 0.5)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="house_3"]
-collision_layer = 3
+[node name="box5" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(-784, 412)
+scale = Vector2(0.5, 0.5)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_3/StaticBody2D"]
-position = Vector2(-440, 368)
-polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+[node name="box6" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(-840, 444)
+scale = Vector2(0.5, 0.5)
 
-[node name="house_4" type="Sprite2D" parent="."]
-position = Vector2(-16, 1200)
-texture = ExtResource("22_e0pg0")
+[node name="box7" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(-896, 476)
+scale = Vector2(0.5, 0.5)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="house_4"]
-collision_layer = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_4/StaticBody2D"]
-position = Vector2(-440, 368)
-polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
-
-[node name="house_5" type="Sprite2D" parent="."]
-position = Vector2(-6328, -1304)
-texture = ExtResource("24_pwx13")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="house_5"]
-collision_layer = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_5/StaticBody2D"]
-position = Vector2(-440, 368)
-polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
-
-[node name="house_6" type="Sprite2D" parent="."]
-position = Vector2(-9152, -320)
-texture = ExtResource("25_n1kx1")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="house_6"]
-collision_layer = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_6/StaticBody2D"]
-position = Vector2(-440, 368)
-polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
-
-[node name="house_7" type="Sprite2D" parent="."]
-position = Vector2(1768, 2864)
-texture = ExtResource("26_vpr3w")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="house_7"]
-collision_layer = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_7/StaticBody2D"]
-position = Vector2(-440, 368)
-polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
-
-[node name="house_8" type="Sprite2D" parent="."]
-position = Vector2(2272, 864)
-texture = ExtResource("20_ffurh")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="house_8"]
-collision_layer = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="house_8/StaticBody2D"]
-position = Vector2(-440, 368)
-polygon = PackedVector2Array(400, 284, 964, -44, 472, -280, -68, 12)
+[node name="box8" parent="bar" instance=ExtResource("29_s6ipg")]
+position = Vector2(-952, 508)
+scale = Vector2(0.5, 0.5)
 
 [node name="TilePlaceholder2" type="Sprite2D" parent="."]
-position = Vector2(8024, -1464)
+position = Vector2(-1748, 4748)
 scale = Vector2(9, 9)
 texture = ExtResource("1_gt07c")
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "thoughts_inventory_view")]
-script = ExtResource("3_u4arb")
-thoughtsRepository = ExtResource("10_5q1rr")
-player = NodePath("../Player")
-thoughts_inventory_view = NodePath("ThoughtsInventoryView")
-
-[node name="ThoughtsInventoryView" parent="UI" instance=ExtResource("3_ms2es")]
-visible = false
-anchors_preset = 15
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="PostPictureScreen" parent="UI" instance=ExtResource("6_t6cq8")]
-visible = false
-size_flags_horizontal = 4
-script = ExtResource("7_cq4yp")
-
-[node name="DailyCycle" parent="UI" instance=ExtResource("1_f2a5t")]
-
 [node name="PlayerHouse" parent="." instance=ExtResource("4_1jyyf")]
-visible = false
 position = Vector2(-2240, -1608)
 
 [node name="Player" parent="." instance=ExtResource("3_eruj1")]
-position = Vector2(-2336, -1600)
+position = Vector2(-2277, -1584)
 mass = 0.104
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -494,44 +541,89 @@ thoughts_repository = ExtResource("10_5q1rr")
 metadata/_custom_type_script = ExtResource("8_yn4qk")
 
 [node name="Villager" parent="Villagers" instance=ExtResource("11_po04c")]
-position = Vector2(576, 480)
+position = Vector2(-1617, -1023)
 
-[node name="box2" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-10136, 2024)
+[node name="Trees" type="Node2D" parent="."]
 
-[node name="box10" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-8016, 2184)
-
-[node name="box11" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-7840, 2120)
-
-[node name="box12" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-7768, 1976)
-
-[node name="box9" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-9920, 2024)
-
-[node name="box3" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-10248, 2088)
-
-[node name="box4" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-10360, 2152)
-
-[node name="box5" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-10472, 2216)
-
-[node name="box6" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-10584, 2280)
-
-[node name="box7" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-10696, 2344)
-
-[node name="box8" parent="." instance=ExtResource("29_s6ipg")]
-position = Vector2(-10808, 2408)
-
-[node name="Tree01" type="Sprite2D" parent="."]
+[node name="Tree01" type="Sprite2D" parent="Trees"]
 position = Vector2(-3344, -1848)
 texture = ExtResource("37_by33p")
+
+[node name="Tree05" type="Sprite2D" parent="Trees"]
+position = Vector2(-5576, -600)
+texture = ExtResource("37_by33p")
+
+[node name="Tree06" type="Sprite2D" parent="Trees"]
+position = Vector2(-4624, 0)
+texture = ExtResource("37_by33p")
+
+[node name="Tree07" type="Sprite2D" parent="Trees"]
+position = Vector2(-6168, -120)
+texture = ExtResource("37_by33p")
+
+[node name="Tree08" type="Sprite2D" parent="Trees"]
+position = Vector2(-5688, 608)
+texture = ExtResource("37_by33p")
+
+[node name="Tree13" type="Sprite2D" parent="Trees"]
+position = Vector2(-7496, 744)
+texture = ExtResource("37_by33p")
+
+[node name="Tree03" type="Sprite2D" parent="Trees"]
+position = Vector2(-4432, -1240)
+texture = ExtResource("37_by33p")
+
+[node name="Tree04" type="Sprite2D" parent="Trees"]
+position = Vector2(-3424, -640)
+texture = ExtResource("37_by33p")
+
+[node name="Tree09" type="Sprite2D" parent="Trees"]
+position = Vector2(-3648, 2936)
+texture = ExtResource("37_by33p")
+
+[node name="Tree10" type="Sprite2D" parent="Trees"]
+position = Vector2(-2448, 2296)
+texture = ExtResource("37_by33p")
+
+[node name="Tree11" type="Sprite2D" parent="Trees"]
+position = Vector2(-5680, 1744)
+texture = ExtResource("37_by33p")
+
+[node name="Tree12" type="Sprite2D" parent="Trees"]
+position = Vector2(-4048, 1368)
+texture = ExtResource("37_by33p")
+
+[node name="Tree14" type="Sprite2D" parent="Trees"]
+position = Vector2(-6832, 240)
+texture = ExtResource("38_vencw")
+
+[node name="Tree15" type="Sprite2D" parent="Trees"]
+position = Vector2(-6664, 1208)
+texture = ExtResource("38_vencw")
+
+[node name="Tree16" type="Sprite2D" parent="Trees"]
+position = Vector2(-4992, 880)
+texture = ExtResource("38_vencw")
+
+[node name="Tree18" type="Sprite2D" parent="Trees"]
+position = Vector2(-4984, -912)
+texture = ExtResource("38_vencw")
+
+[node name="Tree19" type="Sprite2D" parent="Trees"]
+position = Vector2(-4008, -352)
+texture = ExtResource("38_vencw")
+
+[node name="Tree20" type="Sprite2D" parent="Trees"]
+position = Vector2(-3800, -1592)
+texture = ExtResource("38_vencw")
+
+[node name="Tree21" type="Sprite2D" parent="Trees"]
+position = Vector2(-2824, -1032)
+texture = ExtResource("38_vencw")
+
+[node name="Tree17" type="Sprite2D" parent="Trees"]
+position = Vector2(-4624, 2288)
+texture = ExtResource("38_vencw")
 
 [node name="POI" parent="." instance=ExtResource("10_b0eaf")]
 material = SubResource("ShaderMaterial_pwx13")
@@ -545,82 +637,8 @@ material = SubResource("ShaderMaterial_n1kx1")
 position = Vector2(-8, -304)
 texture = ExtResource("37_by33p")
 
-[node name="Tree05" type="Sprite2D" parent="."]
-position = Vector2(-5576, -600)
-texture = ExtResource("37_by33p")
-
-[node name="Tree06" type="Sprite2D" parent="."]
-position = Vector2(-4624, 0)
-texture = ExtResource("37_by33p")
-
-[node name="Tree07" type="Sprite2D" parent="."]
-position = Vector2(-6168, -120)
-texture = ExtResource("37_by33p")
-
-[node name="Tree08" type="Sprite2D" parent="."]
-position = Vector2(-5688, 608)
-texture = ExtResource("37_by33p")
-
-[node name="Tree13" type="Sprite2D" parent="."]
-position = Vector2(-7496, 744)
-texture = ExtResource("37_by33p")
-
-[node name="Tree03" type="Sprite2D" parent="."]
-position = Vector2(-4432, -1240)
-texture = ExtResource("37_by33p")
-
-[node name="Tree04" type="Sprite2D" parent="."]
-position = Vector2(-3424, -640)
-texture = ExtResource("37_by33p")
-
-[node name="Tree09" type="Sprite2D" parent="."]
-position = Vector2(-3648, 2936)
-texture = ExtResource("37_by33p")
-
-[node name="Tree10" type="Sprite2D" parent="."]
-position = Vector2(-2448, 2296)
-texture = ExtResource("37_by33p")
-
-[node name="Tree11" type="Sprite2D" parent="."]
-position = Vector2(-5680, 1744)
-texture = ExtResource("37_by33p")
-
-[node name="Tree12" type="Sprite2D" parent="."]
-position = Vector2(-4048, 1368)
-texture = ExtResource("37_by33p")
-
-[node name="Tree14" type="Sprite2D" parent="."]
-position = Vector2(-6832, 240)
-texture = ExtResource("38_vencw")
-
-[node name="Tree15" type="Sprite2D" parent="."]
-position = Vector2(-6664, 1208)
-texture = ExtResource("38_vencw")
-
-[node name="Tree16" type="Sprite2D" parent="."]
-position = Vector2(-4992, 880)
-texture = ExtResource("38_vencw")
-
-[node name="Tree18" type="Sprite2D" parent="."]
-position = Vector2(-4984, -912)
-texture = ExtResource("38_vencw")
-
-[node name="Tree19" type="Sprite2D" parent="."]
-position = Vector2(-4008, -352)
-texture = ExtResource("38_vencw")
-
-[node name="Tree20" type="Sprite2D" parent="."]
-position = Vector2(-3800, -1592)
-texture = ExtResource("38_vencw")
-
-[node name="Tree21" type="Sprite2D" parent="."]
-position = Vector2(-2824, -1032)
-texture = ExtResource("38_vencw")
-
-[node name="Tree17" type="Sprite2D" parent="."]
-position = Vector2(-4624, 2288)
-texture = ExtResource("38_vencw")
-
+[connection signal="updateTime" from="DailyCycle" to="UI/DayAndTime" method="_on_day_cycle_update_time"]
+[connection signal="updateTime" from="DailyCycle" to="UI/DayAndTime" method="_on_daily_cycle_update_time"]
 [connection signal="timeout" from="Timer" to="UI/PostPictureScreen" method="_on_timer_timeout"]
 [connection signal="toggleEndDayPrompt" from="PlayerHouse" to="Player" method="_on_player_house_toggle_end_day_prompt"]
 [connection signal="show_post_photo_panel" from="Player" to="UI/PostPictureScreen" method="_on_player_show_post_photo_panel"]

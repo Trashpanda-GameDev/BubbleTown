@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7kytukal1of8"]
+[gd_scene load_steps=5 format=3 uid="uid://b7kytukal1of8"]
 
-[ext_resource type="PackedScene" uid="uid://chdcyda3cu3k0" path="res://scenes/day_and_time.tscn" id="1_it6un"]
 [ext_resource type="Script" uid="uid://d26ymlecpchdk" path="res://scripts/day_cycle.gd" id="2_2jb6k"]
 
 [sub_resource type="Animation" id="Animation_eruj1"]
@@ -41,19 +40,12 @@ _data = {
 &"day_cycle_animation": SubResource("Animation_ms2es")
 }
 
-[node name="DailyCycle" type="Node"]
-
-[node name="DayAndTime" parent="." instance=ExtResource("1_it6un")]
-size_flags_horizontal = 8
-
-[node name="DayCycle" type="CanvasModulate" parent="."]
+[node name="DayCycle" type="CanvasModulate"]
 color = Color(0.690677, 0.771796, 0.976782, 1)
 script = ExtResource("2_2jb6k")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DayCycle"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_1jyyf")
 }
 autoplay = "RESET"
-
-[connection signal="updateTime" from="DayCycle" to="DayAndTime" method="_on_day_cycle_update_time"]

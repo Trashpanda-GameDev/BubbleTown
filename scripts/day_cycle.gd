@@ -16,7 +16,7 @@ enum DAY_STATE{DAWN, MORNING, AFTERNOON, EVENING, NIGHT}
 
 func _ready() -> void:
 	add_to_group("DayCycle")
-	
+
 func _process(delta: float) -> void:
 	var currentAnimationPosition := animationPlayer.current_animation_position
 	
@@ -39,9 +39,7 @@ func _process(delta: float) -> void:
 	if animationPlayer.is_playing():
 		check_and_trigger_signal(animationPlayer.current_animation_position)
 
-
 func check_and_trigger_signal(currentTime: int) -> void:
 	if currentTime % hourInterval == 0 && currentTime != lastTriggeredTime:
 		lastTriggeredTime = currentTime
 		updateTime.emit(currentTime)
-		

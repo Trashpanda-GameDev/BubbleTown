@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3rsrqax7mvaa"]
+[gd_scene load_steps=5 format=3 uid="uid://b3rsrqax7mvaa"]
 
 [ext_resource type="Theme" uid="uid://dfrfmjgrt46u6" path="res://themes/main.tres" id="1_4wnr3"]
+[ext_resource type="Script" uid="uid://gwwnrtat3o5x" path="res://scripts/actors/ui/post_picture_screen.gd" id="1_6bhhp"]
 [ext_resource type="PackedScene" uid="uid://dsd0g711ovs5r" path="res://scenes/music/interactionSounds.tscn" id="1_uv8g7"]
 
 [sub_resource type="Theme" id="Theme_hujos"]
@@ -13,6 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_hujos")
+script = ExtResource("1_6bhhp")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -57,3 +59,6 @@ text = "Rest until tomorrow"
 
 [node name="InteractionSounds" parent="." instance=ExtResource("1_uv8g7")]
 root_path = NodePath("..")
+
+[connection signal="pressed" from="postPhotoPanel/postBtn" to="." method="_on_post_btn_pressed"]
+[connection signal="pressed" from="postPhotoPanel/nextDayBtn" to="." method="_on_next_day_btn_pressed"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clr2w1rw2yfds" path="res://scripts/actors/VillagerThoughtController.gd" id="1_qwx5f"]
 [ext_resource type="Script" uid="uid://cr27jxhuxc4rl" path="res://scripts/actors/VillagerSystem.gd" id="1_yugwr"]
-[ext_resource type="Texture2D" uid="uid://bh5ogjitlddnx" path="res://assets/tile_placeholder.png" id="3_iqhb6"]
+[ext_resource type="Texture2D" uid="uid://ccsalc2it842c" path="res://assets/characters/npc_05.png" id="3_foovk"]
 [ext_resource type="PackedScene" uid="uid://dslwxv0rhwedh" path="res://scripts/gameplay/ui/VillagerThoughtView.tscn" id="4_iqhb6"]
 [ext_resource type="Script" uid="uid://cybmqqhhx016r" path="res://scripts/enable_when_player_is_below.gd" id="5_foovk"]
 
@@ -23,15 +23,12 @@ thoughtView = NodePath("VillagerThoughtView")
 script = ExtResource("1_qwx5f")
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
-modulate = Color(0.960568, 0.477116, 0.0718411, 1)
 y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasGroup"]
-texture = ExtResource("3_iqhb6")
-
-[node name="Sprite2D2" type="Sprite2D" parent="CanvasGroup/Sprite2D"]
-position = Vector2(0, -128)
-texture = ExtResource("3_iqhb6")
+position = Vector2(0, -32)
+texture = ExtResource("3_foovk")
+offset = Vector2(0, -96)
 
 [node name="VillagerThoughtView" parent="." instance=ExtResource("4_iqhb6")]
 z_index = 1
@@ -41,20 +38,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -456.0
-offset_right = -124.0
-offset_bottom = -200.0
+offset_left = -496.0
+offset_top = -600.0
+offset_right = -220.0
+offset_bottom = -344.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 65541
 physics_material_override = SubResource("PhysicsMaterial_iqhb6")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(-112, 64, 0, 128, 112, 64, 0, 8)
+position = Vector2(16, 24)
+polygon = PackedVector2Array(-56, 64, 0, 96, 64, 64, 0, 32)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(-112, 64, -112, -192, 0, -256, 112, -192, 112, 64)
+polygon = PackedVector2Array(-16, 80, -56, 0, -74, -17, -78, -34, -88, -46, -88, -64, -72, -152, -96, -208, -95, -257, -72, -296, -38, -320, 8, -328, 41, -322, 72, -304, 89, -287, 104, -256, 104, -208, 88, -168, 72, -152, 72, -80, 88, -48, 88, -32, 72, -24, 64, -24, 56, 0, 56, 80)
 script = ExtResource("5_foovk")
 
 [node name="Area2D" type="Area2D" parent="."]
